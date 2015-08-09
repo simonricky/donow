@@ -60,9 +60,16 @@ function search_ajax(query)
 		type: "POST",
 		url: "listing.php",
 		data: query ,
-		success: function(){
-			var html='';
-			html='<div class="col-xs-12 col-md-6">';
+		dataType:'json',
+		success: function(response){
+		
+		var html='';
+		if(response.status == 'success')
+		{
+		
+			$.each(response.result,function(key,value){
+			
+			html +='<div class="col-xs-12 col-md-6">';
 			html+='<div class="SearchBlk">';
 			html+='<div class="ad_imgcont">';
 			html+='<ul class="owl-carousel property_slide">';
@@ -71,12 +78,12 @@ function search_ajax(query)
 			html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>';
 			html+='</ul>';
 			html+='<a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>';
-			html+='<span class="price">$1,000 <span>New</span></span>';
+			html+='<span class="price">$'+value.price+'<span>New</span></span>';
 			html+='</div>';
 			html+='<div class="ad_info">';
-			html+='<a href="javascript:void(0);" data-toggle="modal" data-target="#ad_detail_modal"><h4>3645 Kenwood Place</h4></a>';
+			html+='<a href="javascript:void(0);" data-toggle="modal" data-target="#ad_detail_modal"><h4>'+value.heading+'</h4></a>';
 			html+='<ul class="loc">';
-			html+='<li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>';
+			html+='<li><img src="images/mapmarker_icon.png" alt="location" width="12px" />'+value.city+', '+value.state+'</li>';
 			html+='</ul>';
 			html+='<ul class="ratinglist">';
 			html+='<li class="rt_main">';
@@ -93,8 +100,10 @@ function search_ajax(query)
 			html+='</div>';
 			html+='</div>';
 			html+='</div>';
-			//alert(html);
-		$("#display").append(html);
+			});
+		}
+		
+		$("#display").html(html);
 		}
 		});
 }
