@@ -1,0 +1,119 @@
+@media(min-width:992px) and (max-width:1199px){
+/*-- HOME PAGE --*/
+.Herobanner .herotext h2{margin-top:80px;}
+.Herobanner .HeroTabs{margin-top:80px;}
+/*-- SEARCH PAGE --*/
+.SearchResult .SearchBlk .ad_imgcont .property_slide, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer div, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer li{height:200px;}
+}
+
+@media(min-width:992px){
+}
+
+@media(max-width:991px){
+/*-- HOME PAGE --*/
+#howitwork_modal .modal-body{padding:20px;}
+#howitwork_modal .HowitRow h5{font-size:20px;}
+}
+
+@media(min-width: 768px){
+/*-- SEARCH PAGE --*/
+.MobFilterHead{display:none;}
+}
+
+@media(min-width:768px) and (max-width:991px){
+/*-- HOME PAGE --*/
+.Herobanner{min-height:500px;}
+.Herobanner .herotext h2{font-size:32px; margin-top:60px; line-height:32px;}
+.Herobanner .herotext p{font-size:20px;}
+.Herobanner .herotext a.herobtn{margin-top:20px;}
+.Herobanner .HeroTabs{margin-top:50px;}
+.Herobanner .HeroTabs h3{font-size:24px;}
+.Herobanner .HeroTabs .tab_btn{background-size:80px; padding-top:80px;}
+.Herobanner .HeroTabs .tab_btn h6{font-size:18px;}
+#howitwork_modal .modal-dialog{margin-top:30px; max-width:93%;}
+.HomeSearch .searchfrom1 .searchbtn{width:auto; padding:0 35px; float:right;}
+.PlacesCont .heading h2{font-size:32px; line-height:32px;}
+.PlacesCont .heading h5{font-size:20px;}
+.PlacesCont .largecont, .PlacesCont .smallcont{height:250px; margin-bottom:25px;}
+.PlacesCont .largecont .placeinfo h6, .PlacesCont .smallcont .placeinfo h6{font-size:18px;}
+.WhyUsSection h3{font-size:24px;}
+.WhyUsSection .whyussteps h5{font-size:20px;}
+/*-- SEARCH PAGE --*/
+.SearchSection .locationMap{width:41%;}
+.SearchSection .SearchList{width:59%;}
+/*-- ADs DETAIL PAGE POPUP --*/
+.AdDetailModal .modal-dialog{max-width:720px;}
+}
+
+@media(max-width:767px){
+/*-- HOME PAGE --*/
+.slicknav_menu{display:block;}
+#howitwork_modal .modal-dialog{margin-top:30px;}
+#howitwork_modal .HowitRow{margin-top:30px;}
+#howitwork_modal .HowitRow .text-center{margin-bottom:20px;}
+#howitwork_modal .learnabt{margin:20px 0;}
+.Herobanner{min-height:auto;}
+.Herobanner .herotext h2{font-size:24px; margin-top:20px; line-height:28px;}
+.Herobanner .herotext p{font-size:17px; line-height:24px;}
+.Herobanner .herotext a.herobtn{margin-top:15px; width:200px; line-height:40px; font-size:20px;}
+.Herobanner .HeroTabs{margin-top:25px;}
+.Herobanner .HeroTabs h3{font-size:18px;}
+.Herobanner .HeroTabs .tab_btn{background-size:65px; padding-top:65px;}
+.Herobanner .HeroTabs .tab_btn h6{font-size:14px;}
+.HomeSearch .searchfrom1 .searchbtn{font-size:24px;}
+.HomeSearch h3{margin-bottom:10px; text-align:center;}
+.PlacesCont .heading h2{font-size:30px;}
+.PlacesCont .heading h5{font-size:18px;}
+.PlacesCont .largecont, .PlacesCont .smallcont{height:320px; margin-bottom:25px;}
+.WhyUsSection .whyussteps{margin-bottom:25px;}
+footer{padding:25px 0 0;}
+footer .quicklinks{display:none; background-color:#191e2b; padding:10px 20px; border-radius:0 0 3px 3px; border-top:1px solid #151a26;}
+footer .ft_contact{margin-top:25px;}
+footer .ft_contact p{float:left; width:50%;}
+footer .ft_social{margin:20px 0 30px; border-top:1px solid #1a1e2c;}
+
+/*-- SEARCH PAGE --*/
+.SearchSection .SearchList{width:100%;}
+.SearchResult .SearchBlk .ad_imgcont .property_slide, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer div, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer li{height:260px;}
+.SearchSection .FilterCont{display:none;}
+/*-- ADs DETAIL PAGE POPUP --*/
+.AdDetailModal .modal-dialog{width:460px;}
+.AdDetailModal .modal-header h2{font-size:22px;}
+.AdDetailModal .modal-header h5{font-size:13px;}
+}
+
+@media(max-width:600px){
+}
+
+@media(max-width:560px){
+/*-- LOGIN & SIGNUP --*/
+.AccountModal button.close{right:10px; top:0;}
+.AccountModal .clickme .tooltip{right:40px; top:4px;}
+.AccountModal .clickme .tooltip::before{border-left:5px solid rgba(0, 0, 0, 0.6); border-right:none; left:auto; right:-5px;}
+}
+
+@media(min-width:481px) and (max-width:767px){
+}
+
+@media(max-width:480px){
+}
+
+@media(max-width:479px){
+/*-- HOME PAGE --*/
+footer .ft_contact p{width:100%;}
+.PlacesCont .largecont, .PlacesCont .smallcont{height:230px;}
+/*-- LOGIN & SIGNUP --*/
+.AccountModal .modal-dialog{width:310px; margin-top:30px;}
+/*-- SEARCH PAGE --*/
+.SearchSection .FilterCont .FilterBtngrp .searchbtn{width:100px;}
+.SearchSection .FilterCont .FilterBtngrp .advn_fltr_btn{width:130px;}
+.SearchSection .FilterCont .distance_filter li{width:50%; margin-bottom:10px;}
+.SearchResult .SearchBlk .ad_imgcont .property_slide, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer div, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer li{height:230px;}
+/*-- ADs DETAIL PAGE POPUP --*/
+.AdDetailModal .modal-dialog{width:310px;}
+}
+
+@media(max-width:320px){
+/*-- SEARCH PAGE --*/
+.SearchResult .SearchBlk .ad_imgcont .property_slide, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer div, .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer li{height:210px;}
+}
