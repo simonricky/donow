@@ -683,9 +683,9 @@ $("#range_03").ionRangeSlider({
     type: "double",
     grid: false,
     min: 0,
-    max: 1000,
+    max: 10000,
     from: 0,
-    to: 1000,
+    to: 10000,
     prefix: "$",
     onStart: function (data) {
         console.log("onStart");
