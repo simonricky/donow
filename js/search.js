@@ -1,4 +1,4 @@
-
+var i = 1;
   $(function() {
 	  var form_data=$("#search_form").serialize();
     var availableTags = [
@@ -55,20 +55,26 @@
 
 /*search ajax function on call event*/
 function search_ajax(query)
-{
+{initialize();
 	$.ajax({
 		type: "POST",
 		url: "listing.php",
 		data: query ,
 		dataType:'json',
 		success: function(response){
-		
+		//alert(JSON.stringify(response.result));
 		var html='';
 		if(response.status == 'success')
 		{
 		
 			$.each(response.result,function(key,value){
-			
+				lat = value.latt;
+                lng = value.longt;
+                name = value.heading;
+                image = value.image;
+                price = value.price;
+               // url = value.short_description;
+				addMarker(i, lat, lng,image, name, price);
 			html +='<div class="col-xs-12 col-md-6">';
 			html+='<div class="SearchBlk">';
 			html+='<div class="ad_imgcont">';
@@ -101,6 +107,7 @@ function search_ajax(query)
 			html+='</div>';
 			html+='</div>';
 			html+='</div>';
+			i++;
 			});
 		}
 		

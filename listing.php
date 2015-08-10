@@ -68,7 +68,7 @@ if(isset($_POST['search_advertisement']))
 	}
 	
 	
-	$sql = " SELECT a.* ".$query." FROM tbl_advertisement as a LEFT JOIN ad_timing as at ON(a.id = at.ad_id) WHERE 1=1 ".$condition.$having;
+	$sql = " SELECT a.* ".$query." FROM tbl_advertisement as a LEFT JOIN ad_timing as at ON(a.id = at.ad_id) WHERE 1=1 ".$condition.$having."GROUP BY a.id";
 	$query = mysql_query($sql) or die(mysql_error($sql));
 	if($query)
 	{

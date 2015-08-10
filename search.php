@@ -35,8 +35,16 @@ require_once 'phpInclude/header.php';
 <!--</head>
 
 <body> -->
+<style type="text/css">
+	#js-map-container{
+		height: 900px;
+	}
+	</style>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
 <script type="text/javascript" src="js/search.js"></script>
+<!-- <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> -->
+	<script src="js/map.js"></script>
+
 <section class="container-fluid headersection hidden-xs"><!-- INNER HEADER -->
 	<a href="javascript:void(0);" class="visible-xs donow_moblogo"><img src="images/donow.png" alt="donow" class="img-responsive" /></a>
 	<div class="row">
@@ -57,7 +65,7 @@ require_once 'phpInclude/header.php';
 <section class="SearchSection"><!-- // FIND LOCATION SEARCH // -->
 	<div class="container-fluid">
     	<div class="row">
-        	<div class="locationMap hidden-xs"><!-- // LOCATION MAP // -->
+        	<div class="locationMap hidden-xs" id="js-map-container"><!-- // LOCATION MAP // -->
             	<a href="javascript:void(0);" class="mapexpend_btn"><i class="fa fa-angle-left"></i></a>
             	<img src="images/searchmap.jpg" alt="map" style="width:100%; height:100%;" />
             </div><!-- // LOCATION MAP // -->
