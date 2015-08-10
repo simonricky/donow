@@ -30,7 +30,7 @@ require_once '../phpInclude/functions.php';
 		$temporary = explode(".", $_FILES["photoimg"]["name"]);
 		$file_extension = end($temporary);
 		if ((($_FILES["photoimg"]["type"] == "image/png") || ($_FILES["photoimg"]["type"] == "image/jpg") || ($_FILES["photoimg"]["type"] == "image/jpeg")
-		) && ($_FILES["photoimg"]["size"] < 100000)//Approx. 100kb files can be uploaded.
+		) //&& ($_FILES["photoimg"]["size"] < 100000)//Approx. 100kb files can be uploaded.
 				&& in_array($file_extension, $validextensions)) {
 			if ($_FILES["photoimg"]["error"] > 0)
 			{
