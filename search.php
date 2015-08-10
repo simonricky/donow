@@ -78,124 +78,122 @@ require_once 'phpInclude/header.php';
                     	<li><a href="javascript:void(0);" class="filteropenbtn"><i class="fa fa-filter"></i> Filter</a></li>
                         <li><a href="javascript:void(0);" class="openshortbtn"><i class="fa fa-list"></i> Short</a></li>
                     </ul>
-                    <form id="search_form">
                 	<div class="FilterCont"><!-- // FILTER CONTAINER // -->
-                    	<div class="FilterBtngrp">
-                        	<a href="javascript:void(0);" class="searchbtn">Search</a>
-                            <a href="javascript:void(0);" class="advn_fltr_btn"><img src="images/plusicon_light.png" alt="plus" /> Advance Filter</a>
-                        </div>
-                        <div class="row">
-                        	<div class="col-xs-12"><label class="lbl">Make you search</label></div>
-                        	<div class="col-md-4 col-sm-12 col-xs-12">
-                            	<div class="form-group">
-                                	<input type="text" placeholder="What you want to do" class="form-control search" name="search_query" id="search_query"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
-                            	<div class="form-group icon_field_group">
-                                	<select class="form-control custom-select" name="select_level">
-                                                <option value="">Select Level (1 - 5)</option>
-                                                <option value="0">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
-                            	<div class="form-group clearfix">
-                                	<select class="form-control custom-select search_filter" name="ad_time" id="ad_time">
-                                    	<option value=''>Time</option>
-                                    	<option value="01:00">1 AM</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        	<div class="col-md-6">
-                            	<div class="form-group">
-                                	<label class="lbl">Price</label>
-                                    <input type="range" id="range_03" name="price_range"/>
-                                </div>
-                            </div>
-							<!--
-                            <div class="col-md-6">
-                            	<div class="form-group">
-                                	<label class="lbl">Location</label>
-                                    <div class="icon_field_group">
-                                    	<input type="text" placeholder="Location" class="form-control search_filter" id="location" name="location"/>
-                                        <span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
-                                    </div>
-                                </div>
-                            </div>
-							-->
-							  <div class="col-md-6">
-                            	<div class="form-group">
-                                	<label class="lbl">City</label>
-                                    <div class="icon_field_group">
-                                    	<input type="text" placeholder="City" class="form-control search_filter" id="city" name="city"/>
-                                        <span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
-                                    </div>
-                                </div>
-                            </div>
-							  <div class="col-md-6">
-                            	<div class="form-group">
-                                	<label class="lbl">State</label>
-                                    <div class="icon_field_group">
-                                    	<!-- <input type="text" placeholder="State" class="form-control search_filter" id="state" name="state"/> -->
-                                    	<select class="form-control custom-select" id="state" name="state">
-										<option value="">Select State</option>
-											<?php
-											$sql = mysql_query("Select * from states ORDER BY  state ASC");
-											while($res = mysql_fetch_assoc($sql) ){
-											
-											?>
+						<form id="search_form">
+							<div class="FilterBtngrp">
+								<a href="javascript:void(0);" class="searchbtn">Search</a>
+								<a href="javascript:void(0);" class="advn_fltr_btn"><img src="images/plusicon_light.png" alt="plus" /> Advance Filter</a>
+							</div>
+							<div class="row">
+								<div class="col-xs-12"><label class="lbl">Make you search</label></div>
+								<div class="col-md-4 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<input type="text" placeholder="What you want to do" class="form-control search" name="search_query" id="search_query"/>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
+									<div class="form-group icon_field_group">
+										<select class="form-control custom-select" name="select_level">
+											<option value="">Select Level (1 - 5)</option>
+											<option value="0">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
+									<div class="form-group clearfix">
+										<select class="form-control custom-select search_filter" name="ad_time" id="ad_time">
+											<option value=''>Time</option>
+											<option value="01:00">1 AM</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="lbl">Price</label>
+										<input type="range" id="range_03" name="price_range"/>
+									</div>
+								</div>
+								<!--
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="lbl">Location</label>
+										<div class="icon_field_group">
+											<input type="text" placeholder="Location" class="form-control search_filter" id="location" name="location"/>
+											<span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
+										</div>
+									</div>
+								</div>
+								-->
+								  <div class="col-md-6 col-xs-12 col-xss-6">
+									<div class="form-group">
+										<label class="lbl">City</label>
+										<div class="icon_field_group">
+											<input type="text" placeholder="City" class="form-control search_filter" id="city" name="city"/>
+											<span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
+										</div>
+									</div>
+								</div>
+								  <div class="col-md-6 col-xs-12 col-xss-6">
+									<div class="form-group icon_field_group">
+										<label class="lbl">State</label>
+										<!-- <input type="text" placeholder="State" class="form-control search_filter" id="state" name="state"/> -->
+										<select class="form-control custom-select" id="state" name="state">
+											<option value="">Select State</option>
+												<?php
+												$sql = mysql_query("Select * from states ORDER BY  state ASC");
+												while($res = mysql_fetch_assoc($sql) ){
+												
+												?>
 											<option value="<?php echo $res['code'];?>"><?php echo $res['state'];?></option>
 											<?php  } ?>
-                                           </select>
-                                        <span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        	<div class="col-md-12">
-                            	<label class="lbl">Distance (within)</label>
-                                <ul class="distance_filter">
-                                	<li>
-                                    	<input type="checkbox" id="check1" name="check" class="search_filter example" value="500"/>
-                                        <label class="checkbox" for="check1"><img src="images/check.png" alt="check" /> 500 m</label>
-                                    </li>
-                                    <li>
-                                    	<input type="checkbox" id="check2" name="check" class="search_filter example" value="1"/>
-                                        <label class="checkbox" for="check2"><img src="images/check.png" alt="check" /> 1 km</label>
-                                    </li>
-                                    <li>
-                                    	<input type="checkbox" id="check3" name="check" class="search_filter example" value="2.5"/>
-                                        <label class="checkbox" for="check3"><img src="images/check.png" alt="check" /> 2.5 km</label>
-                                    </li>
-                                    <li>
-                                    	<input type="checkbox" id="check4" name="check" class="search_filter example" value="5"/>
-                                        <label class="checkbox" for="check4"><img src="images/check.png" alt="check" /> +5 km</label>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12">
-                            	 <div class="filtertype">
-                                 	<h5>Result</h5>
-                                    <span class="displaytype"><span>Display:</span>
-                                    	<a href="javascript:void(0);" class="active"><i class="fa fa-th"></i></a>
-                                        <a href="javascript:void(0);" class="hidden-xs"><i class="fa fa-list"></i></a>
-                                    </span>
-                                 </div>
-                            </div>
-                        </div>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label class="lbl">Distance (within)</label>
+									<ul class="distance_filter">
+										<li>
+											<input type="checkbox" id="check1" name="check" class="search_filter example" value="500"/>
+											<label class="checkbox" for="check1"><img src="images/check.png" alt="check" /> 500 m</label>
+										</li>
+										<li>
+											<input type="checkbox" id="check2" name="check" class="search_filter example" value="1"/>
+											<label class="checkbox" for="check2"><img src="images/check.png" alt="check" /> 1 km</label>
+										</li>
+										<li>
+											<input type="checkbox" id="check3" name="check" class="search_filter example" value="2.5"/>
+											<label class="checkbox" for="check3"><img src="images/check.png" alt="check" /> 2.5 km</label>
+										</li>
+										<li>
+											<input type="checkbox" id="check4" name="check" class="search_filter example" value="5"/>
+											<label class="checkbox" for="check4"><img src="images/check.png" alt="check" /> +5 km</label>
+										</li>
+									</ul>
+								</div>
+								<div class="col-md-12">
+									 <div class="filtertype">
+										<h5>Result</h5>
+										<span class="displaytype"><span>Display:</span>
+											<a href="javascript:void(0);" class="active"><i class="fa fa-th"></i></a>
+											<a href="javascript:void(0);" class="hidden-xs"><i class="fa fa-list"></i></a>
+										</span>
+									 </div>
+								</div>
+							</div>
+							<input type="hidden" name="search_advertisement" value="1">
+							<input type="hidden" name="price_from" id="price_from" value="">
+							<input type="hidden" name="price_to" id="price_to" value="">
+						</form>
                     </div><!-- // FILTER CONTAINER // -->
-					<input type="hidden" name="search_advertisement" value="1">
-					<input type="hidden" name="price_from" id="price_from" value="">
-					<input type="hidden" name="price_to" id="price_to" value="">
-                    </form>
+					
                     
                     <div class="SearchResult"><!-- SEARCH RESULT -->
                         <div class="row" id="display">

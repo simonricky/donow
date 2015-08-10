@@ -136,55 +136,49 @@ label.error {color : red !important;}
                                     	<div class="form-group">
                                             <label>State</label>
                                             <div class="selectcell">
-                                                <div class="cell_left">
-                                                    <select class="form-control custom-select" name="state">
-														<option value="">Select State</option>
-															<?php
-															$sql = mysql_query("Select * from states ORDER BY  state ASC");
-															while($res = mysql_fetch_assoc($sql) ){
-															
-															?>
-															<option value="<?php echo $res['code'];?>"><?php echo $res['state'];?></option>
-															<?php  } ?>
-                                                    </select>
-                                                </div>
-                                                
+												<select class="form-control custom-select" name="state">
+													<option value="">Select State</option>
+														<?php
+														$sql = mysql_query("Select * from states ORDER BY  state ASC");
+														while($res = mysql_fetch_assoc($sql) ){
+														
+														?>
+													<option value="<?php echo $res['code'];?>"><?php echo $res['state'];?></option>
+													<?php  } ?>
+												</select>
                                             </div>
                                        	</div>
-                                       	
                                     </div>
-                                    <div class="cell_right">
-		                                        	<label>City</label>
-		                                            <input type="text" placeholder="City" class="form-control" name="city"/>
-                                       			 </div>
-                                     <div class="cell_left">
+									<div class="col-sm-4 col-xs-12">
+										<div class="form-group">
+											<label>City</label>
+											<input type="text" placeholder="City" class="form-control" name="city"/>
+										</div>
+									</div>
+									<div class="col-sm-4 col-xs-12">
                                         <div class="form-group">
                                             <label>Country</label>
                                             <div class="selectcell">
-                                                <div class="cell_left">
-                                                    <select class="form-control custom-select" name="country">
-														<option value="">Select Country</option>
-															<?php
-															$sql = mysql_query("Select * from country ORDER BY  country_name ASC");
-															while($res = mysql_fetch_assoc($sql) ){
-															if(trim($res['country_name'])=="Australia")
-															{
-															$selected = 'selected="selected"';
-															}else 
-															{
-															$selected = ' ';
-															}
-															
-															?>
-															<option value="<?php echo $res['country_code'];?>" <?php echo $selected;?>><?php echo $res['country_name'];?></option>
-															<?php  } ?>
-                                                    </select>
-                                                </div>
-                                                
+												<select class="form-control custom-select" name="country">
+													<option value="">Select Country</option>
+														<?php
+														$sql = mysql_query("Select * from country ORDER BY  country_name ASC");
+														while($res = mysql_fetch_assoc($sql) ){
+														if(trim($res['country_name'])=="Australia")
+														{
+														$selected = 'selected="selected"';
+														}else 
+														{
+														$selected = ' ';
+														}
+														
+														?>
+														<option value="<?php echo $res['country_code'];?>" <?php echo $selected;?>><?php echo $res['country_name'];?></option>
+														<?php  } ?>
+												</select>
                                             </div>
                                        	</div>
-                                                </div>
-                                    
+                                    </div>
                                 </div>
                                 <!--Developer code ends here  -->
                                 <div class="row">

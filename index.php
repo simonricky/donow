@@ -74,7 +74,7 @@ if(!isset($_SESSION))
                         <h3>Search Rental places and room near form you</h3>
                         <form class="searchfrom1" method="get" action="search.php">
                             <div class="row">
-                                <div class="col-md-5 col-xs-12 pad7">
+                                <div class="col-sm-9 col-xss-8 col-xs-12 pad7">
                                     <div class="form-group">
                                         <input type="text" placeholder="Place, City or zip code" class="form-control" id="tags" name="location"/>
                                         <span class="ip_icons"><img src="images/mapmarker_icon.png" alt="mapmarker" /></span>
@@ -109,7 +109,7 @@ if(!isset($_SESSION))
                                                 </select>
                                             </div>
                                         </div> -->
-                                        <div class="col-md-3 col-xs-12 pad7">
+                                        <div class="col-sm-3 col-xss-4 col-xs-12 pad7">
                                             <div class="form-group">
                                                 <input type="submit" value="Search" class="searchbtn" />
                                             </div>

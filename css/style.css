@@ -223,7 +223,8 @@ input.cmn-toggle-round:checked + label .fa-check{display:block;}
 /*-- SEARH RESULT --*/
 .SearchResult{padding:0 5px; margin-top:20px;}
 .SearchResult .SearchBlk{background-color:#ffffff; box-shadow:0 0 5px rgba(0,0,0,0.2); padding:0 0 20px; margin:0 0 25px; min-height:340px;}
-.SearchResult .SearchBlk .ad_imgcont{background-color:#cccccc; position:relative; min-height:180px; overflow:hidden;}
+.SearchResult .SearchBlk .ad_imgcont{background-color:#cccccc; position:relative; min-height:230px; overflow:hidden;}
+.SearchResult .SearchBlk .ad_imgcont img.responsiveimg{position:absolute; top:0; left:0; right:0; bottom:0; height:100%; margin:auto auto;}
 .SearchResult .SearchBlk .ad_imgcont .property_slide{height:230px;}
 .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer div{height:230px;}
 .SearchResult .SearchBlk .ad_imgcont .property_slide .owl-stage-outer li{height:230px; position:relative; cursor:pointer;}
