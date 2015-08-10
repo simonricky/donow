@@ -93,8 +93,14 @@ require_once 'phpInclude/header.php';
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
                             	<div class="form-group icon_field_group">
-                                	<input type="text" placeholder="Date" class="form-control" id="datepicker1" name="datepicker"/>
-                                    <span class="inputicon"><img src="images/calender_icon.png" alt="calender" /></span>
+                                	<select class="form-control custom-select" name="select_level">
+                                                <option value="">Select Level (1 - 5)</option>
+                                                <option value="0">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
@@ -137,7 +143,17 @@ require_once 'phpInclude/header.php';
                             	<div class="form-group">
                                 	<label class="lbl">State</label>
                                     <div class="icon_field_group">
-                                    	<input type="text" placeholder="State" class="form-control search_filter" id="state" name="state"/>
+                                    	<!-- <input type="text" placeholder="State" class="form-control search_filter" id="state" name="state"/> -->
+                                    	<select class="form-control custom-select" id="state" name="state">
+										<option value="">Select State</option>
+											<?php
+											$sql = mysql_query("Select * from states ORDER BY  state ASC");
+											while($res = mysql_fetch_assoc($sql) ){
+											
+											?>
+											<option value="<?php echo $res['code'];?>"><?php echo $res['state'];?></option>
+											<?php  } ?>
+                                           </select>
                                         <span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
                                     </div>
                                 </div>
@@ -148,19 +164,19 @@ require_once 'phpInclude/header.php';
                             	<label class="lbl">Distance (within)</label>
                                 <ul class="distance_filter">
                                 	<li>
-                                    	<input type="checkbox" id="check1" name="check" class="search_filter" value="500"/>
+                                    	<input type="checkbox" id="check1" name="check" class="search_filter example" value="500"/>
                                         <label class="checkbox" for="check1"><img src="images/check.png" alt="check" /> 500 m</label>
                                     </li>
                                     <li>
-                                    	<input type="checkbox" id="check2" name="check" class="search_filter" value="1"/>
+                                    	<input type="checkbox" id="check2" name="check" class="search_filter example" value="1"/>
                                         <label class="checkbox" for="check2"><img src="images/check.png" alt="check" /> 1 km</label>
                                     </li>
                                     <li>
-                                    	<input type="checkbox" id="check3" name="check" class="search_filter" value="2.5"/>
+                                    	<input type="checkbox" id="check3" name="check" class="search_filter example" value="2.5"/>
                                         <label class="checkbox" for="check3"><img src="images/check.png" alt="check" /> 2.5 km</label>
                                     </li>
                                     <li>
-                                    	<input type="checkbox" id="check4" name="check" class="search_filter" value="5"/>
+                                    	<input type="checkbox" id="check4" name="check" class="search_filter example" value="5"/>
                                         <label class="checkbox" for="check4"><img src="images/check.png" alt="check" /> +5 km</label>
                                     </li>
                                 </ul>
@@ -623,6 +639,10 @@ $(document).ready(function(){
 		var selectedOption = $(this).find(":selected").text();
 		$(this).next(".holder").text(selectedOption);
 	}).trigger('change');
+	/*select only one checkbox*/
+	$('input.example').on('change', function() {
+	    $('input.example').not(this).prop('checked', false);  
+	});
 })
 
 // FOOTER QUICK LINKS ON MOBILE //
