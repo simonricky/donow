@@ -72,11 +72,12 @@ function search_ajax(query)
 			html +='<div class="col-xs-12 col-md-6">';
 			html+='<div class="SearchBlk">';
 			html+='<div class="ad_imgcont">';
-			html+='<ul class="owl-carousel property_slide">';
-			html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>';
-			html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>';
-			html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>';
-			html+='</ul>';
+			//html+='<ul class="owl-carousel property_slide">';
+			//html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="admin/uploads/'+value.image+'" alt="ad1" class="responsiveimg" /></li>';
+			//html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>';
+			//html+='<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>';
+			//html+='</ul>';
+			html+='<img src="admin/uploads/'+value.image+'" alt="ad1" class="responsiveimg" />';
 			html+='<a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>';
 			html+='<span class="price">$'+value.price+'<span>New</span></span>';
 			html+='</div>';
