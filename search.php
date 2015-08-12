@@ -96,7 +96,7 @@ require_once 'phpInclude/header.php';
 								<div class="col-xs-12"><label class="lbl">Make you search</label></div>
 								<div class="col-md-4 col-sm-12 col-xs-12">
 									<div class="form-group">
-										<input type="text" placeholder="What you want to do" class="form-control search" name="search_query" id="search_query"/>
+										<input type="text" placeholder="What you want to do" class="form-control search" name="search_query" id="search_query" autocomplete="off"/>
 									</div>
 								</div>
 								<div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
@@ -142,7 +142,7 @@ require_once 'phpInclude/header.php';
 									<div class="form-group">
 										<label class="lbl">City</label>
 										<div class="icon_field_group">
-											<input type="text" placeholder="City" class="form-control search_filter" id="city" name="city"/>
+											<input type="text" placeholder="City" class="form-control" id="city" name="city" autocomplete="off"/>
 											<span class="inputicon"><img src="images/mapmarker_icon.png" alt="map marker" /></span>
 										</div>
 									</div>
@@ -151,7 +151,7 @@ require_once 'phpInclude/header.php';
 									<div class="form-group icon_field_group">
 										<label class="lbl">State</label>
 										<!-- <input type="text" placeholder="State" class="form-control search_filter" id="state" name="state"/> -->
-										<select class="form-control custom-select" id="state" name="state">
+										<select class="form-control custom-select search_filter" id="state" name="state">
 											<option value="">Select State</option>
 												<?php
 												$sql = mysql_query("Select * from states ORDER BY  state ASC");
@@ -205,200 +205,7 @@ require_once 'phpInclude/header.php';
                     
                     <div class="SearchResult"><!-- SEARCH RESULT -->
                         <div class="row" id="display">
-                            <!-- <div class="col-xs-12 col-md-6"><!-- BLOCKS -->
-                                <!--  <div class="SearchBlk">
-                                    <div class="ad_imgcont">
-                                    	<ul class="owl-carousel property_slide">
-                                        	<li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li data-toggle="modal" data-target="#ad_detail_modal"><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                        </ul>
-                                        <a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>
-                                        <span class="price">$1,000 <span>New</span></span>
-                                    </div>
-                                    <div class="ad_info">
-                                    	<a href="javascript:void(0);" data-toggle="modal" data-target="#ad_detail_modal"><h4>3645 Kenwood Place</h4></a>
-                                        <ul class="loc">
-                                            <li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>
-                                        </ul>
-                                        <ul class="ratinglist">
-                                        	<li class="rt_main">
-                                            	<ul class="starslist">
-                                                	<li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);" class="empty"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="rt_main"><a href="javascript:void(0);">10 Reviews</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div> --><!-- BLOCKS -->
-                            
-                            <?php /*<div class="col-xs-12 col-md-6"><!-- BLOCKS -->
-                                <div class="SearchBlk">
-                                    <div class="ad_imgcont">
-                                    	<ul class="owl-carousel property_slide">
-                                        	<li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                        </ul>
-                                        <a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>
-                                        <span class="price">$1,000 </span>
-                                    </div>
-                                    <div class="ad_info">
-                                    	<h4>3645 Kenwood Place</h4>
-                                        <ul class="loc">
-                                            <li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>
-                                        </ul>
-                                        <ul class="ratinglist">
-                                        	<li class="rt_main">
-                                            	<ul class="starslist">
-                                                	<li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);" class="empty"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="rt_main"><a href="javascript:void(0);">10 Reviews</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div><!-- BLOCKS -->
-                            
-                            <div class="col-xs-12 col-md-6"><!-- BLOCKS -->
-                                <div class="SearchBlk">
-                                    <div class="ad_imgcont">
-                                    	<ul class="owl-carousel property_slide">
-                                        	<li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                        </ul>
-                                        <a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>
-                                        <span class="price">$1,000</span>
-                                    </div>
-                                    <div class="ad_info">
-                                    	<h4>3645 Kenwood Place</h4>
-                                        <ul class="loc">
-                                            <li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>
-                                        </ul>
-                                        <ul class="ratinglist">
-                                        	<li class="rt_main">
-                                            	<ul class="starslist">
-                                                	<li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);" class="empty"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="rt_main"><a href="javascript:void(0);">10 Reviews</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div><!-- BLOCKS -->
-                            
-                            <div class="col-xs-12 col-md-6"><!-- BLOCKS -->
-                                <div class="SearchBlk">
-                                    <div class="ad_imgcont">
-                                    	<ul class="owl-carousel property_slide">
-                                        	<li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                        </ul>
-                                        <a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>
-                                        <span class="price">$1,000</span>
-                                    </div>
-                                    <div class="ad_info">
-                                    	<h4>3645 Kenwood Place</h4>
-                                        <ul class="loc">
-                                            <li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>
-                                        </ul>
-                                        <ul class="ratinglist">
-                                        	<li class="rt_main">
-                                            	<ul class="starslist">
-                                                	<li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);" class="empty"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="rt_main"><a href="javascript:void(0);">10 Reviews</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div><!-- BLOCKS -->
-                            
-                            <div class="col-xs-12 col-md-6"><!-- BLOCKS -->
-                                <div class="SearchBlk">
-                                    <div class="ad_imgcont">
-                                    	<ul class="owl-carousel property_slide">
-                                        	<li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                        </ul>
-                                        <a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>
-                                        <span class="price">$1,000 <span>New</span></span>
-                                    </div>
-                                    <div class="ad_info">
-                                    	<h4>3645 Kenwood Place</h4>
-                                        <ul class="loc">
-                                            <li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>
-                                        </ul>
-                                        <ul class="ratinglist">
-                                        	<li class="rt_main">
-                                            	<ul class="starslist">
-                                                	<li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);" class="empty"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="rt_main"><a href="javascript:void(0);">10 Reviews</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div><!-- BLOCKS -->
-                            
-                            <div class="col-xs-12 col-md-6"><!-- BLOCKS -->
-                                <div class="SearchBlk">
-                                    <div class="ad_imgcont">
-                                    	<ul class="owl-carousel property_slide">
-                                        	<li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                            <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                                        </ul>
-                                        <a href="javascript:void(0);" class="favriote"><i class="fa fa-heart"></i></a>
-                                        <span class="price">$1,000</span>
-                                    </div>
-                                    <div class="ad_info">
-                                    	<h4>3645 Kenwood Place</h4>
-                                        <ul class="loc">
-                                            <li><img src="images/mapmarker_icon.png" alt="location" width="12px" />San Francisco</li>
-                                        </ul>
-                                        <ul class="ratinglist">
-                                        	<li class="rt_main">
-                                            	<ul class="starslist">
-                                                	<li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);"><i class="fa fa-star"></i></a></li>
-                                                    <li><a href="javascript:void(0);" class="empty"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="rt_main"><a href="javascript:void(0);">10 Reviews</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div><!-- BLOCKS -->*/?>
-                            
                         </div>
-                        
                         <div class="row"><!-- PAGGINATION ROW -->
                         	<div class="col-xs-12">
                             	<nav class="pull-right">

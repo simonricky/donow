@@ -2,7 +2,13 @@
 require_once '../config/dbconnection.php';
 db_open();
 require_once '../phpInclude/functions.php';
-?>
+
+   $per_page = 3;
+  //getting number of rows and calculating no of pages
+ $query = mysql_query("SELECT * from tbl_advertisement WHERE is_deleted='no' ");
+  $count = mysql_num_rows($query);
+  $pages = ceil($count/$per_page);
+  ?>
 <!doctype html>
 <html>
 <head>
@@ -23,6 +29,29 @@ require_once '../phpInclude/functions.php';
   <script src="js/html5shiv.min.js"></script>
   <script src="js/respond.min.js"></script>
 <![endif]-->
+<script type="text/javascript" src="js/listing.js"></script>
+<style>
+#loading { 
+width: 100%; 
+position: absolute;
+}
+
+#pagination
+{
+text-align:center;
+margin-left:120px;
+
+}
+#pagination li{	
+list-style: none; 
+float: left; 
+margin-right: 16px; 
+padding:5px; 
+border:solid 1px #dddddd;
+color:#0063DC; 
+}
+
+	</style>
 </head>
 
 <body>
@@ -89,42 +118,24 @@ require_once '../phpInclude/functions.php';
                 <div class="col-xs-12">
                 	<h2 class="heading">Manage ads</h2>
                     <div class="InnrCont">
-                    	<h3 class="subhead">Manage your ads</h3>
-                    	<?php 
-                    	$query = mysql_query("SELECT * from tbl_advertisement WHERE is_deleted='no' ");
-                    	while($record = mysql_fetch_assoc($query))
-                    	{
-                    	?>
-                        <div class="ads_row"><!-- AD ROW START HERE -->
-                            <div class="row">
-                                <div class="col-sm-3 col-xss-4 col-xs-8"><span class="adimgcont"><img src="uploads/<?php echo $record['image'];?>" alt="ad1" class="img-responsive" /></span></div>
-                                <div class="col-sm-2 col-xss-8 col-xs-4 col-sm-push-7 mob_pad0">
-                                    <nav>
-                                        <ul>
-                                            <li><a href="javascript:void(0);" data-toggle="tooltip" title="Edit Ad"><i class="fa fa-pencil"></i></a></li>
-                                            <li><a href="javascript:void(0);" data-toggle="tooltip" title="Delete Ad"><i class="fa fa-times"></i></a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <div class="col-sm-7 col-xs-12 ad_info col-sm-pull-2">
-                                    <h4><?php echo ucfirst($record['heading']);?></h4>
-                                    <p><?php echo ucfirst($record['short_description']);?></p>
-                                    <span class="location"><i class="fa fa-map-marker"></i> New York</span>
-                                    <ul class="filteredlist">
-                                        <li><i class="fa fa-dollar"></i> <?php echo $record['price'];?></li>
-                                        <li><i class="fa fa-clock-o"></i> 01:30 PM</li>
-                                        <li><i class="fa fa-bolt"></i> level 5</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div><!-- AD ROW END HERE -->
-                        <?php } ?>
-                        
-                        
-                        
+                    	<h3 class="subhead" >Manage your ads</h3>
+                    	<div id="display">
+                    	
                         
                     </div>
+                    
+                    <ul id="pagination">
+				<?php
+				//Show page links
+				for($i=1; $i<=$pages; $i++)
+				{
+					echo '<li id="'.$i.'">'.$i.'</li>';
+				}
+				?>
+	</ul>
+	
                 </div>
+                <div id="loading" ></div>
             </div>
         </div>
     </div><!-- INNER SECTION -->

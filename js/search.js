@@ -46,6 +46,18 @@ var i = 1;
 			search_ajax(search_query);
 		}
 		});
+	$('#city').keyup(function() {
+		var city = $(this).val();
+		if(city=="")
+		{
+		$("#display").html("");
+		}
+		else
+		{
+			var search_query = $("#search_form").serialize();
+			search_ajax(search_query);
+		}
+		});
 	
 	$(".search_filter").change(function(){
 		var range_form = $("#search_form").serialize();
