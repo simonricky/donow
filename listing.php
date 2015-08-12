@@ -54,7 +54,7 @@ if(isset($_POST['search_advertisement']))
 	
 	if(!empty($city) && empty($check))
 	{
-		$condition .= " and a.city = '".$city."' ";
+		$condition .= " and a.city LIKE '%".$city."%' ";
 	}
 	if(!empty($state) && empty($check))
 	{
