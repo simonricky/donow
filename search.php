@@ -88,6 +88,7 @@ require_once 'phpInclude/header.php';
                     </ul>
                 	<div class="FilterCont"><!-- // FILTER CONTAINER // -->
 						<form id="search_form">
+						<input type='hidden' name='pgno' id='pgno' value='1'>
 							<div class="FilterBtngrp">
 								<a href="javascript:void(0);" class="searchbtn">Search</a>
 								<a href="javascript:void(0);" class="advn_fltr_btn"><img src="images/plusicon_light.png" alt="plus" /> Advance Filter</a>
@@ -208,8 +209,10 @@ require_once 'phpInclude/header.php';
                         </div>
                         <div class="row"><!-- PAGGINATION ROW -->
                         	<div class="col-xs-12">
-                            	<nav class="pull-right">
-                                  <p class="page_result_found">1 – 18 of 1000+ Rentals</p>
+							
+                            	<nav class="pull-right paging_outer">
+                                  
+							<!--	  
                                   <ul class="pagination">
                                     <li>
                                       <a href="javascript:void(0);" aria-label="Previous">
@@ -227,6 +230,7 @@ require_once 'phpInclude/header.php';
                                       </a>
                                     </li>
                                   </ul>
+								  -->
                                 </nav>
                             </div>
                         </div><!-- PAGGINATION ROW -->
