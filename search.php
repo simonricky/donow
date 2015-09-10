@@ -5,42 +5,54 @@ if(!isset($_SESSION))
 {
  session_start();		
 }
- //print_r($_SESSION);
+/* if (!isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']=="")
+{
+	header("Location:index.php#login");
+} */
+ if (isset($_GET['search_query']) && $_GET['search_query']!="")
+ {
+ 	$search=trim($_GET['search_query']);
+ }
 require_once 'phpInclude/header.php';
+require_once 'phpInclude/functions.php';
+if (isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']!="")
+{
+	$condition = "  id='".trim($_SESSION['db_session_id'])."' ";
+	$user   = getUserDetail($condition);
+	$data = mysql_fetch_assoc($user);
+	//print_r($data);
+	if (isset($data['profile_image_url']) && $data['profile_image_url']!="")
+	{
+		$image="profile/".trim($data['profile_image_url']);
+	} else
+	{
+		$image="images/profile_user.jpg";
+	}
+}
 ?>
-<!-- <!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DoNow</title>
-
-<link href="css/grid.css" type="text/css" rel="stylesheet" />
-<link href="css/owl.carousel.css" type="text/css" rel="stylesheet" />
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<link href="font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-<link href="fonts/fonts.css" type="text/css" rel="stylesheet" />
-<link href="css/slicknav.min.css" type="text/css" rel="stylesheet" />
-<link href="css/responsive.css" type="text/css" rel="stylesheet" />
-
-<link href="css/ion.rangeSlider.css" type="text/css" rel="stylesheet" />
-
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
   <script src="js/html5shiv.min.js"></script>
   <script src="js/respond.min.js"></script>
 <![endif]-->
-<!--</head>
-
-<body> -->
+<!--</head>-->
+ <script>
+  $(function() {
+    $( "#date_of_birth" ).datepicker({
+	      changeMonth: true,
+	      changeYear: true,
+	      yearRange: '1960:2000',
+	      dateFormat: 'mm-dd-yy'
+	    });
+  });
+  </script>
+<body style="overflow:hidden;">
 <style type="text/css">
 	#js-map-container{
-		height: 900px;
+		 min-height: 640px; border: 0px; padding: 0px;
 	}
 	</style>
-<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+<script src="http://maps.google.com/maps/api/js?v=3&sensor=false" type="text/javascript"></script>
 <script type="text/javascript" src="js/search.js"></script>
 <!-- <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> -->
 	<script src="js/map.js"></script>
@@ -50,13 +62,32 @@ require_once 'phpInclude/header.php';
 	<div class="row">
     	<div class="col-xs-12">
         	<header>
-                <a href="javascript:void(0);" class="logo"><img src="images/donow_lg.png" alt="DoNow" class="img-responsive" /></a>
+                <a href="<?php echo $root;?>search.php" class="logo"><img src="images/donow_lg.png" alt="DoNow" class="img-responsive" /></a>
                 <a href="javascript:void(0);" class="navtoggle hidden-xs"><span></span><span></span><span></span></a>
                 <ul class="leftnav" id="menu">
+                <?php 
+                if (isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']!="")
+                {
+                ?>
+                <li style="display:block;">
+                    	<div class="usrpro_head">
+                        	<a href="javascript:void(0);"><h6><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?> <i class="fa fa-angle-down"></i></h6>
+                            <span class="userimg"><img src="<?php echo $image;?>" class="img-responsive" alt="user" /></span></a>
+                            <ul class="usr_drop">
+                            	<li><a href="user_profile.php">Account Setting</a></li>
+                            	<!-- <li><a href="business_profile.php">Business Setting</a></li> -->
+                                <li><a href="handler.php?method=<?php echo base64_encode("logout");?>">Log Out</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                <?php } else {?>
+                
                     <li><a href="javascript:void(0);" data-toggle="modal" data-target="#accountpopup" class="loginlink"><i class="fa fa-key"></i> Login</a></li>
                     <li><a href="javascript:void(0);" data-toggle="modal" data-target="#accountpopup" class="signuplink"><i class="fa fa-lock"></i> Signup</a></li>
                     <li></li>
-                </ul>
+               
+                <?php } ?>
+                 </ul>
             </header>
         </div>
     </div>
@@ -67,10 +98,10 @@ require_once 'phpInclude/header.php';
     	<div class="row">
         	<div class="locationMap hidden-xs" id="js-map-container"><!-- // LOCATION MAP // -->
             	<a href="javascript:void(0);" class="mapexpend_btn"><i class="fa fa-angle-left"></i></a>
-            	<img src="images/searchmap.jpg" alt="map" style="width:100%; height:100%;" />
+            	<!-- <img src="images/searchmap.jpg" alt="map" style="width:100%; height:100%;" /> -->
             </div><!-- // LOCATION MAP // -->
             
-            <div class="SearchList"><!-- // SEARCH LIST // -->
+            <div class="SearchList"<!-- // SEARCH LIST // -->
             	<div class="col-xs-12">
                 	<div class="row">
                     	<div class="MobApplyFilter">
@@ -97,13 +128,13 @@ require_once 'phpInclude/header.php';
 								<div class="col-xs-12"><label class="lbl">Make you search</label></div>
 								<div class="col-md-4 col-sm-12 col-xs-12">
 									<div class="form-group">
-										<input type="text" placeholder="What you want to do" class="form-control search" name="search_query" id="search_query" autocomplete="off"/>
+										<input type="text" placeholder="What you want to do" class="form-control search" name="search_query" id="search_query" autocomplete="off" value="<?php if (isset($_GET['search_query']) && $_GET['search_query']!=""){echo $search;}?>"/>
 									</div>
 								</div>
 								<div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
 									<div class="form-group icon_field_group">
 										<select class="form-control custom-select" name="select_level">
-											<option value="">Select Level (1 - 5)</option>
+											<option value="">Activity Intensity</option>
 											<option value="0">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -115,8 +146,14 @@ require_once 'phpInclude/header.php';
 								<div class="col-md-4 col-sm-6 col-xs-12 col-xss-6 col-xxss-6 col-ss-12">
 									<div class="form-group clearfix">
 										<select class="form-control custom-select search_filter" name="ad_time" id="ad_time">
-											<option value=''>Time</option>
-											<option value="01:00">1 AM</option>
+											<option value=''>Duration of Activity</option>
+											<!-- <option value="01:00">1 AM</option> -->
+											<?php
+											$start=strtotime('00:00');
+											$end=strtotime('23:30');
+											for ($halfhour=$start;$halfhour<=$end;$halfhour=$halfhour+30*60) {?>
+											<option value="<?php echo date('H:i',$halfhour);?>" ><?php echo date('H:i',$halfhour);?></option>	   
+											<?php }?>
 										</select>
 									</div>
 								</div>
@@ -182,7 +219,7 @@ require_once 'phpInclude/header.php';
 											<label class="checkbox" for="check3"><img src="images/check.png" alt="check" /> 2.5 km</label>
 										</li>
 										<li>
-											<input type="checkbox" id="check4" name="check" class="search_filter example" value="5"/>
+											<input type="checkbox" id="check4" name="check" class="search_filter example" value="5" checked="checked"/>
 											<label class="checkbox" for="check4"><img src="images/check.png" alt="check" /> +5 km</label>
 										</li>
 									</ul>
@@ -211,26 +248,7 @@ require_once 'phpInclude/header.php';
                         	<div class="col-xs-12">
 							
                             	<nav class="pull-right paging_outer">
-                                  
-							<!--	  
-                                  <ul class="pagination">
-                                    <li>
-                                      <a href="javascript:void(0);" aria-label="Previous">
-                                        <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
-                                      </a>
-                                    </li>
-                                    <li class="active"><a href="javascript:void(0);">1</a></li>
-                                    <li><a href="javascript:void(0);">2</a></li>
-                                    <li><a href="javascript:void(0);">3</a></li>
-                                    <li><a href="javascript:void(0);">4</a></li>
-                                    <li><a href="javascript:void(0);">5</a></li>
-                                    <li>
-                                      <a href="javascript:void(0);" aria-label="Next">
-                                        <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
-                                      </a>
-                                    </li>
-                                  </ul>
-								  -->
+                              
                                 </nav>
                             </div>
                         </div><!-- PAGGINATION ROW -->
@@ -301,72 +319,124 @@ require_once 'phpInclude/header.php';
       </div>
       <div class="modal-body">
       	<div class="formOtr">
+      	<div id="errors"></div>
         	<div id="loginform" style="display:block;">
-                <form>
+                <form id="login">
                     <h5>Sign in to continue your account</h5>
                     <img src="images/user_img.jpg" alt="login" class="responsiveimg usrimg" />
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter you email here" />
+                        <input type="text" class="form-control" placeholder="Enter you email here" name="email" id="email" value="<?php if (isset($_COOKIE['email']) && $_COOKIE['email']!=""){echo trim($_COOKIE['email']);}?>"/>
                         <i class="fa fa-user icons"></i>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Enter password" />
+                        <input type="password" class="form-control" placeholder="Enter password" name="password" value="<?php if (isset($_COOKIE['password']) && $_COOKIE['password']!=""){echo trim($_COOKIE['password']);}?>"/>
                         <i class="fa fa-key icons"></i>
                         
                         <a href="javascript:void(0);" class="forgot_pass">Forgot your password?</a>
                     </div>
                     <div class="form-group">
                         <div class="switch">
-                            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" value="select" name="remember_me">
                             <label for="cmn-toggle-1"><i class="fa fa-times"></i><i class="fa fa-check"></i></label>
                             <span class="rembrme">Remenber me!</span>
                         </div>
+                        <input type="hidden" name="action" value="login"/>
                         <input type="submit" value="Sign in" class="signin_btn" />
                     </div>
                     <span class="or_seprator"><span>OR</span></span>
+                    <small class="row txt_md">By joining DoNow, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></small>
                     <div class="form-group">
-                        <a href="javascript:void(0);" class="socialbtn fbbtn"><i class="fa fa-facebook"></i> Login with facebook</a>
+                        <a href="javascript:void(0);" class="socialbtn fbbtn" onclick="Login()"><i class="fa fa-facebook"></i> Login with facebook</a>
                     </div>
                     <div class="form-group">
-                        <a href="javascript:void(0);" class="socialbtn gplusbtn"><i class="fa fa-google-plus"></i> Login with google+</a>
+                        <a href="javascript:void(0);" class="socialbtn gplusbtn"  onclick="login()"><i class="fa fa-google-plus"></i> Login with google+</a>
                     </div>
-                    <p class="content-text-outr">Not a registered user yet?  &nbsp;&nbsp;<a href="javascript:void(0);"> Sign up now!</a></p>
+                    <p class="content-text-outr">Not a registered user yet?  &nbsp;&nbsp;<a href="javascript:void(0);" class="signuplink"> Sign up now!</a></p>
                 </form>
             </div>
             <div id="signupform" style="display:none;">
-                <form>
-                    <h5>Creat an account</h5>
+                <form id="register">
+                    <h5>Create an Account</h5>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Full Name" />
+                        <input type="text" class="form-control" placeholder="Full Name" name="full_name"/>
                         <i class="fa fa-user icons"></i>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email Address" />
+                        <input type="text" class="form-control" placeholder="Email Address" name="email_address" id="email_address"/>
                         <i class="fa fa-envelope-o icons"></i>
                     </div>
+                    <!-- <div class="form-group">
+                        <input type="text" class="form-control" placeholder="ABN" name="abn" id="abn"/>
+                        <i class="fa fa-envelope-o icons"></i>
+                    </div> -->
+                    <?php /*?><div class="form-group">
+                        <input type="text" class="form-control" placeholder="Telephone" name="telephone" id="telephone"/>
+                        <i class="fa fa-mobile icons"></i>
+                    </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Enter Password" />
+                        <input type="text" class="form-control" placeholder="Address" name="address" id="address"/>
+                        <i class="fa fa-location-arrow icons"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="City" name="city" id="city"/>
+                        <i class="fa fa-location-arrow icons"></i>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control custom-select" name="state">
+						<option value="">Select State</option>
+							<?php
+							$sql = mysql_query("Select * from states ORDER BY  state ASC");
+							while($res = mysql_fetch_assoc($sql) ){
+							
+							?>
+						<option value="<?php echo $res['code'];?>"><?php echo $res['state'];?></option>
+						<?php  } ?>
+					</select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control custom-select" name="country">
+							<option value="">Select Country</option>
+								<?php
+								$sql = mysql_query("Select * from country ORDER BY  country_name ASC");
+								while($res = mysql_fetch_assoc($sql) ){
+								if(trim($res['country_name'])=="Australia")
+								{
+								$selected = 'selected="selected"';
+								}else 
+								{
+								$selected = ' ';
+								}
+								
+								?>
+								<option value="<?php echo $res['country_code'];?>" <?php echo $selected;?>><?php echo $res['country_name'];?></option>
+								<?php  } ?>
+						</select>
+                    </div><?php */ ?>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Enter Password" name="password" id="password"/>
                         <i class="fa fa-lock icons"></i>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Confirm Password" />
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_pass"/>
                         <i class="fa fa-lock icons"></i>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Date of Birth(dd/mm/yy)" />
+                        <input type="text" class="form-control" placeholder="Date of Birth(dd/mm/yy)" name="date_birth" id="date_of_birth"/>
                         <i class="fa fa-birthday-cake icons"></i>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Register Now!" class="signin_btn registerbtn" />
+                    <input type="hidden" name="action" value="register"/>
+                        <input type="submit" value="Register Now!" class="signin_btn registerbtn" id="save"/>
                     </div>
                     <span class="or_seprator"><span>OR</span></span>
+                    <small class="row txt_md">By joining DoNow, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></small>
                     <div class="form-group">
                         <a href="javascript:void(0);" class="socialbtn fbbtn"><i class="fa fa-facebook"></i> Signup with facebook</a>
                     </div>
                     <div class="form-group">
-                        <a href="javascript:void(0);" class="socialbtn gplusbtn"><i class="fa fa-google-plus"></i> Signup with google+</a>
+                        <a href="javascript:void(0);" class="socialbtn gplusbtn" onclick="login()"><i class="fa fa-google-plus"></i> Signup with google+</a>
                     </div>
-                    <p class="content-text-outr">Already have an account?  &nbsp;&nbsp;<a href="javascript:void(0);"> Login now!</a></p>
+                    <p class="content-text-outr">Already have an account?  &nbsp;&nbsp;<a href="javascript:void(0);"  class="loginlink"> Login now!</a></p>
                 </form>
             </div>
         </div>
@@ -381,31 +451,31 @@ require_once 'phpInclude/header.php';
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-        <h2>Midtown Manhattan Oversized</h2>
-        <h5><i class="fa fa-map-marker"></i>&nbsp; 6782 Sarasea Circle, Siesta Key, FL 34242</h5>
+        <h2 id="heading">Midtown Manhattan Oversized</h2>
+        <h5 id="address"><i class="fa fa-map-marker"></i>&nbsp; 6782 Sarasea Circle, Siesta Key, FL 34242</h5>
       </div>
       <div class="modal-body">
         <div class="row">
         	<div class="col-sm-6">
                 <div class="ad_sliderCont">
-                    <ul class="owl-carousel ad_modal_slide" id="ad_modal_slide">
-                        <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                        <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                        <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
-                    </ul>
+                    <!-- <ul class="owl-carousel ad_modal_slide" id="ad_modal_slide">
+                        <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li> -->
+                        <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" id="adv_img"/></li>
+                       <!--  <li><img src="images/ads/ad1.png" alt="ad1" class="responsiveimg" /></li>
+                    </ul> -->
                     <span class="price">$1,000 <span>New</span></span>
                 </div>
             </div>
             <div class="col-sm-6">
             	<h4>Overview</h4>
                 <ul class="overviewlist">
-                	<li><h6>Time</h6> <span>09:30am to 05:00 pm</span></li>
+                	<li><h6>Time of Activity</h6> <span id="time">09:30</span></li>
                     <li><h6>price</h6> <span class="pricetag">$ 1,000</span></li>
-                    <li><h6>Distance from me</h6> <span>With in 5 km</span></li>
+                    <li><h6>Distance from me</h6> <span id="distance">With in 5 km</span></li>
                 </ul>
                 <div class="short_des">
                     <h4>Short Description</h4>
-                    <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+                    <p id="short_desc">Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
                 </div>
             </div>
         </div>
@@ -413,7 +483,7 @@ require_once 'phpInclude/header.php';
         	<div class="col-sm-6">
             	<div class="LongDescription">
                 	<h4>Full Description</h4>
-                    <p>Integer fermentum felis ac bibendum porta. Aenean at est gravida, consequat sapien vitae, sollicitudin nisl. Nullam interdum mollis nunc, sit amet dapibus mauris elementum id. Ut tempus aliquam nisl id ultricies. Donec varius vestibulum leo, faucibus venenatis magna semper ac. Morbi id euismod lacus, nec dictum purus. Phasellus at ligula nec augue placerat tincidunt ut at magna. Nulla facilisi.<br/><br/>
+                    <p id="long_desc">Integer fermentum felis ac bibendum porta. Aenean at est gravida, consequat sapien vitae, sollicitudin nisl. Nullam interdum mollis nunc, sit amet dapibus mauris elementum id. Ut tempus aliquam nisl id ultricies. Donec varius vestibulum leo, faucibus venenatis magna semper ac. Morbi id euismod lacus, nec dictum purus. Phasellus at ligula nec augue placerat tincidunt ut at magna. Nulla facilisi.<br/><br/>
 
 3 beds<br/>
 3 bedroom<br/>
@@ -424,7 +494,7 @@ require_once 'phpInclude/header.php';
             <div class="col-sm-6">
             	<div class="LongDescription">
                 	<h4>Our Location</h4>
-                    <img src="images/searchmap.jpg" alt="map" class="img-responsive" />
+                    <div id="googleMap" style="width:453px;height:380px;"></div>
                 </div>
             </div>
         </div>
@@ -502,9 +572,9 @@ $("#range_03").ionRangeSlider({
     type: "double",
     grid: false,
     min: 0,
-    max: 10000,
+    max: 400,
     from: 0,
-    to: 10000,
+    to: 400,
     prefix: "$",
     onStart: function (data) {
         console.log("onStart");
@@ -549,7 +619,7 @@ $(document).ready(function() {
 	
 });
 $('#ad_detail_modal').on('shown.bs.modal', function (e) {
-    $(".ad_modal_slide").owlCarousel({
+   $(".ad_modal_slide").owlCarousel({
 		dot:false,
 		nav:true,
     	navText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
@@ -558,6 +628,24 @@ $('#ad_detail_modal').on('shown.bs.modal', function (e) {
 		autoWidth: false,
 	});
 });
+</script>
+<script>
+function initialize(lat,longt) {
+	var myCenter=new google.maps.LatLng(lat,longt);
+  var mapProp = {
+    center:new google.maps.LatLng(lat,longt),
+    zoom:5,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  var marker=new google.maps.Marker({
+	  position:myCenter,
+	  });
+
+	marker.setMap(map);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
 <!-- ////// JQUERY ////// -->
 </body>

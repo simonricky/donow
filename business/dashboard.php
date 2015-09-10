@@ -1,3 +1,34 @@
+<?php 
+require_once '../config/dbconnection.php';
+db_open();
+require_once '../phpInclude/functions.php';
+if (!isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']=="")
+{
+	header("Location:index.php");
+}
+else {
+	$condition = "  id='".trim($_SESSION['db_session_id'])."' ";
+	$user   = getUserDetail($condition);
+	$data = mysql_fetch_assoc($user);
+	//print_r($data);
+	if (isset($data['profile_image_url']) && $data['profile_image_url']!="")
+	{
+		$image="../profile/".trim($data['profile_image_url']);
+	} else
+	{
+		$image="../images/profile_user.jpg";
+	}
+}
+$ads=mysql_query("Select count(*) as row from tbl_advertisement WHERE is_deleted='no' ");
+$row = mysql_fetch_assoc($ads);
+//echo $row['row'];  
+$users=mysql_query("Select count(*) as unum from users WHERE is_deleted='0' ");
+$urow = mysql_fetch_assoc($users);
+//echo $urow['unum'];
+/* calculate businesses */
+$buis=mysql_query("Select count(*) as busn from buiseness WHERE status='Active' ");
+$busi_row = mysql_fetch_assoc($buis);
+?>
 <!doctype html>
 <html>
 <head>
@@ -37,7 +68,7 @@
                     <span></span>
                     <span></span>
                 </a>
-                <a href="javascript:void(0);" class="logo hidden-xs"><img src="images/logo.png" alt="DoNow" class="img-responsive" /></a>
+                <a href="<?php echo $root;?>" class="logo hidden-xs"><img src="images/logo.png" alt="DoNow" class="img-responsive" /></a>
                 <div class="headsearch hidden-xs hidden-sm">
                 	<i class="fa fa-search"></i>
                     <input type="search" placeholder="Type to search" />
@@ -46,14 +77,14 @@
             <div class="col-md-6 col-sm-8 col-xs-10 mob_pad0">
             	<div class="left_nav pull-right">
                 	<ul>
-                    	<li class="notification"><a href="javascript:void(0);"><i class="fa fa-bell"><span>5</span></i></a></li>
+                    	<!-- <li class="notification"><a href="#" id="notificationLink"><i class="fa fa-bell"><span>5</span></i></a></li> -->
                         <li class="wlcmUser">
                         	<a href="javascript:void(0);">
-                            	<span class="usrimg"><img src="images/usrimg.jpg" alt="user" class="img-responsive" /></span>
-                                <h5>Welcome<span>Administrator</span></h5>
+                            	<span class="usrimg"><img src="<?php echo $image;?>" alt="user" class="img-responsive" /></span>
+                                <h5>Welcome<span><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?></span></h5>
                         	</a>
                         </li>
-                        <li class="logout"><a href="javascript:void(0);"><span>Log out</span><i class="fa fa-sign-out"></i></a></li>
+                        <li class="logout"><a href="handler.php?method=<?php echo base64_encode("logout");?>"><span>Log out</span><i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -62,17 +93,10 @@
 </header><!-- FIXED HEADER -->
 
 <section class="mainSection">
-	<div class="sidebar"><!-- FIXED SIDEBAR -->
-    	<h5>Overview</h5>
-        <ul class="navigation">
-        	<li><a href="javascript:void(0);" class="active"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-cloud-upload"></i> <span>Upload ad</span> </a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-gears"></i> <span>Manage ads</span> </a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-briefcase"></i> <span>Businesses</span></a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-users"></i> <span>Users</span></a></li>
-        </ul>
-    </div><!-- FIXED SIDEBAR -->
-    
+	<?php 
+	require_once 'phpInclude/sidebar.php';
+	?>
+	<!-- FIXED SIDEBAR -->
     <div class="InnerSection"><!-- INNER SECTION -->
     	<div class="container-fluid">
         	<div class="row">
@@ -91,7 +115,7 @@
                                 	<div class="boards bluebg">
                                     	<div class="txtset">
                                         	<span class="cell">
-                                            	<h3>444 <span>All users</span></h3>
+                                            	<h3><?php echo $urow['unum'];?> <span>All users</span></h3>
                                             </span>
                                         </div>
                                     	<span class="iconset"><img src="images/user_icon.png" alt="usres" /></span>
@@ -101,7 +125,7 @@
                                 	<div class="boards Orng">
                                     	<div class="txtset">
                                         	<span class="cell">
-                                            	<h3>444 <span>Ads Uploaded</span></h3>
+                                            	<h3><?php echo $row['row'];?> <span>Ads Uploaded</span></h3>
                                             </span>
                                         </div>
                                     	<span class="iconset orngbg"><img src="images/cloud_upload_icon.png" alt="upload" /></span>
@@ -111,7 +135,7 @@
                                 	<div class="boards Grn">
                                     	<div class="txtset">
                                         	<span class="cell">
-                                            	<h3>444 <span>Total Business</span></h3>
+                                            	<h3><?php echo $busi_row['busn'];?> <span>Total Business</span></h3>
                                             </span>
                                         </div>
                                     	<span class="iconset grnbg"><img src="images/business_icon.png" alt="business" /></span>
@@ -157,3 +181,4 @@ $(document).ready(function() {
 </script>
 </body>
 </html>
+  

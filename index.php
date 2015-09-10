@@ -10,7 +10,12 @@ if(!isset($_SESSION))
 ?>
 <script>
   $(function() {
-    $( "#date_of_birth" ).datepicker();
+    $( "#date_of_birth" ).datepicker({
+	      changeMonth: true,
+	      changeYear: true,
+	      yearRange: '1960:2000',
+	      dateFormat: 'mm-dd-yy'
+	    });
   });
   </script>
 
@@ -51,7 +56,7 @@ if(!isset($_SESSION))
     	<div class="row">
         	<div class="col-xs-12 hidden-xs">
             	<header>
-                	<a href="javascript:void(0);" class="logo"><img src="images/logo1.png" alt="DoNow" class="img-responsive" /></a>
+                	<a href="<?php echo $root;?>search.php" class="logo"><img src="images/logo1.png" alt="DoNow" class="img-responsive" /></a>
                     <ul class="leftnav" id="menu">
                     	<li><a href="javascript:void(0);" data-toggle="modal" data-target="#accountpopup" class="loginlink"><i class="fa fa-key"></i> Login</a></li>
                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#accountpopup" class="signuplink"><i class="fa fa-lock"></i> Signup</a></li>
@@ -76,7 +81,7 @@ if(!isset($_SESSION))
                             <div class="row">
                                 <div class="col-sm-9 col-xss-8 col-xs-12 pad7">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Place, City or zip code" class="form-control" id="tags" name="location"/>
+                                        <input type="text" placeholder="Make you search" class="form-control" id="tags" name="search_query"/>
                                         <span class="ip_icons"><img src="images/mapmarker_icon.png" alt="mapmarker" /></span>
                                     </div>
                                 </div>
@@ -332,18 +337,18 @@ if(!isset($_SESSION))
                     <h5>Sign in to continue your account</h5>
                     <img src="images/user_img.jpg" alt="login" class="responsiveimg usrimg" />
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter you email here" name="email" id="email"/>
+                        <input type="text" class="form-control" placeholder="Enter you email here" name="email" id="email" value="<?php if (isset($_COOKIE['email']) && $_COOKIE['email']!=""){echo trim($_COOKIE['email']);}?>"/>
                         <i class="fa fa-user icons"></i>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Enter password" name="password"/>
+                        <input type="password" class="form-control" placeholder="Enter password" name="password" value="<?php if (isset($_COOKIE['password']) && $_COOKIE['password']!=""){echo trim($_COOKIE['password']);}?>"/>
                         <i class="fa fa-key icons"></i>
                         
                         <a href="javascript:void(0);" class="forgot_pass">Forgot your password?</a>
                     </div>
                     <div class="form-group">
                         <div class="switch">
-                            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" value="select" name="remember_me">
                             <label for="cmn-toggle-1"><i class="fa fa-times"></i><i class="fa fa-check"></i></label>
                             <span class="rembrme">Remenber me!</span>
                         </div>
@@ -351,18 +356,19 @@ if(!isset($_SESSION))
                         <input type="submit" value="Sign in" class="signin_btn" />
                     </div>
                     <span class="or_seprator"><span>OR</span></span>
+                    <small class="row txt_md">By joining DoNow, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></small>
                     <div class="form-group">
                         <a href="javascript:void(0);" class="socialbtn fbbtn" onclick="Login()"><i class="fa fa-facebook"></i> Login with facebook</a>
                     </div>
                     <div class="form-group">
-                        <a href="javascript:void(0);" class="socialbtn gplusbtn"><i class="fa fa-google-plus"></i> Login with google+</a>
+                        <a href="javascript:void(0);" class="socialbtn gplusbtn"  onclick="login()"><i class="fa fa-google-plus"></i> Login with google+</a>
                     </div>
-                    <p class="content-text-outr">Not a registered user yet?  &nbsp;&nbsp;<a href="javascript:void(0);"> Sign up now!</a></p>
+                    <p class="content-text-outr">Not a registered user yet?  &nbsp;&nbsp;<a href="javascript:void(0);" class="signuplink"> Sign up now!</a></p>
                 </form>
             </div>
             <div id="signupform" style="display:none;">
                 <form id="register">
-                    <h5>Creat an account</h5>
+                    <h5>Create an Account</h5>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Full Name" name="full_name"/>
                         <i class="fa fa-user icons"></i>
@@ -371,6 +377,53 @@ if(!isset($_SESSION))
                         <input type="text" class="form-control" placeholder="Email Address" name="email_address" id="email_address"/>
                         <i class="fa fa-envelope-o icons"></i>
                     </div>
+                    <!-- <div class="form-group">
+                        <input type="text" class="form-control" placeholder="ABN" name="abn" id="abn"/>
+                        <i class="fa fa-envelope-o icons"></i>
+                    </div> -->
+                    <?php /*?><div class="form-group">
+                        <input type="text" class="form-control" placeholder="Telephone" name="telephone" id="telephone"/>
+                        <i class="fa fa-mobile icons"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Address" name="address" id="address"/>
+                        <i class="fa fa-location-arrow icons"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="City" name="city" id="city"/>
+                        <i class="fa fa-location-arrow icons"></i>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control custom-select" name="state">
+						<option value="">Select State</option>
+							<?php
+							$sql = mysql_query("Select * from states ORDER BY  state ASC");
+							while($res = mysql_fetch_assoc($sql) ){
+							
+							?>
+						<option value="<?php echo $res['code'];?>"><?php echo $res['state'];?></option>
+						<?php  } ?>
+					</select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control custom-select" name="country">
+							<option value="">Select Country</option>
+								<?php
+								$sql = mysql_query("Select * from country ORDER BY  country_name ASC");
+								while($res = mysql_fetch_assoc($sql) ){
+								if(trim($res['country_name'])=="Australia")
+								{
+								$selected = 'selected="selected"';
+								}else 
+								{
+								$selected = ' ';
+								}
+								
+								?>
+								<option value="<?php echo $res['country_code'];?>" <?php echo $selected;?>><?php echo $res['country_name'];?></option>
+								<?php  } ?>
+						</select>
+                    </div><?php */ ?>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Enter Password" name="password" id="password"/>
                         <i class="fa fa-lock icons"></i>
@@ -388,13 +441,14 @@ if(!isset($_SESSION))
                         <input type="submit" value="Register Now!" class="signin_btn registerbtn" id="save"/>
                     </div>
                     <span class="or_seprator"><span>OR</span></span>
+                    <small class="row txt_md">By joining DoNow, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></small>
                     <div class="form-group">
                         <a href="javascript:void(0);" class="socialbtn fbbtn"><i class="fa fa-facebook"></i> Signup with facebook</a>
                     </div>
                     <div class="form-group">
-                        <a href="javascript:void(0);" class="socialbtn gplusbtn"><i class="fa fa-google-plus"></i> Signup with google+</a>
+                        <a href="javascript:void(0);" class="socialbtn gplusbtn" onclick="login()"><i class="fa fa-google-plus"></i> Signup with google+</a>
                     </div>
-                    <p class="content-text-outr">Already have an account?  &nbsp;&nbsp;<a href="javascript:void(0);"> Login now!</a></p>
+                    <p class="content-text-outr">Already have an account?  &nbsp;&nbsp;<a href="javascript:void(0);" class="loginlink"> Login now!</a></p>
                 </form>
             </div>
         </div>
@@ -410,6 +464,13 @@ if(!isset($_SESSION))
 
 <script type="text/javascript">
 $(document).ready(function(){
+	if(window.location.hash) {
+	    var hash = window.location.hash;
+	   if(hash=="#login")
+	   {
+	    	$('.loginlink').trigger('click');
+	   }
+	}
 	$(".custom-select").each(function(){
 		$(this).wrap("<span class='select-wrapper'></span>");
 		$(this).after("<span class='holder'></span>");

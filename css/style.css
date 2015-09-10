@@ -193,7 +193,7 @@ input.cmn-toggle-round:checked + label .fa-check{display:block;}
 .SearchSection .locationMap.MapFull{width:100%; transition:all 0.6s ease-in-out 0s;}
 .SearchSection .locationMap .mapexpend_btn{height:35px; width:35px; display:block; border-radius:0 3px 3px 0; text-align:center; line-height:35px; box-shadow:2px 2px 4px rgba(0,0,0,0.5); position:absolute; left:0; top:50%; margin-top:-12px; background:#f4f4f4; color:#444444; font-size:28px;}
 .SearchSection .locationMap .mapexpend_btn:hover, .SearchSection .locationMap .mapexpend_btn.active{color:#ff513f;}
-.SearchSection .SearchList{float:left; width:55%; position:relative; background-color:#f4f4f4; padding:0 0 30px;}
+.SearchSection .SearchList{float:left; width:55%; position:relative; background-color:#f4f4f4; padding:0 0 30px; max-height:650px; overflow:auto;}
 /*-- SEARCH FILTERS --*/
 .SearchSection .FilterCont{padding:0 5px;}
 .SearchSection .FilterCont .FilterBtngrp{margin:20px 0 18px; display:table; width:100%;}

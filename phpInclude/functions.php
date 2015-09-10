@@ -167,4 +167,68 @@ function getUserDetail($condition)
 	 $sql = "SELECT * from users where status='Active' and ".$condition." ";
 	return mysql_query($sql);
 }
+///// Check user already registered   /////
+function userExists($condition)
+{
+	$sql = "SELECT count(id) as count,id,status from users where status='Active' and ".$condition." group by(id)";
+	if(mysql_num_rows(mysql_query($sql)) > 0)
+	{
+		return mysql_fetch_array(mysql_query($sql));
+	}
+	else
+	{
+		return array("count"=>'0');
+	}
+}
+/* calculate time diference */
+function date_getFullTimeDifference( $start, $end )
+{
+$uts['start']      =    strtotime( $start );
+        $uts['end']        =    strtotime( $end );
+        if( $uts['start']!==-1 && $uts['end']!==-1 )
+        {
+            if( $uts['end'] >= $uts['start'] )
+            {
+                $diff    =    $uts['end'] - $uts['start'];
+                if( $years=intval((floor($diff/31104000))) )
+                    $diff = $diff % 31104000;
+                if( $months=intval((floor($diff/2592000))) )
+                    $diff = $diff % 2592000;
+                if( $days=intval((floor($diff/86400))) )
+                    $diff = $diff % 86400;
+                if( $hours=intval((floor($diff/3600))) )
+                    $diff = $diff % 3600;
+                if( $minutes=intval((floor($diff/60))) )
+                    $diff = $diff % 60;
+                $diff    =    intval( $diff );
+                return( array('years'=>$years,'months'=>$months,'days'=>$days, 'hours'=>$hours, 'minutes'=>$minutes, 'seconds'=>$diff) );
+            }
+            else
+            {
+                echo "Ending date/time is earlier than the start date/time";
+            }
+        }
+        else
+        {
+            echo "Invalid date/time data detected";
+        }
+}
+
+function getDetail($field,$table,$condition)
+{
+	$result = array();
+	$sql = " SELECT ".$field." FROM ".$table." WHERE 1=1 ".$condition;
+	$query = mysql_query($sql);
+	if($query)
+	{
+		if(mysql_num_rows($query) > 0)
+		{
+			while($fetch = mysql_fetch_assoc($query))
+			{
+				$result[] = $fetch;
+			}
+		}
+	}
+	return $result;
+}
 ?>

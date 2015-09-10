@@ -1,7 +1,7 @@
 var i = 1;
   $(function() {
 	  var form_data=$("#search_form").serialize();
-    var availableTags = [
+    /*var availableTags = [
 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
@@ -19,7 +19,7 @@ var i = 1;
           var select_form=$("#search_form").serialize();
           search_ajax(select_form);
       }
-    });
+    });*/
    
     /* datepicker */
     $( "#datepicker1" ).datepicker({
@@ -33,7 +33,6 @@ var i = 1;
  // });
   
 //////search ajax/////////////////
-//$(document).ready(function(){
 	$("#search_query").keyup(function() {
 		var query = $(this).val();
 		var search_query = $("#search_form").serialize();
@@ -41,17 +40,6 @@ var i = 1;
 		});
 	$('#city').keyup(function() {
 		var city = $(this).val();
-		/*
-		if(city=="")
-		{
-		$("#display").html("");
-		}
-		else
-		{
-			var search_query = $("#search_form").serialize();
-			search_ajax(search_query);
-		}
-		*/
 		var search_query = $("#search_form").serialize();
 			search_ajax(search_query);
 		});
@@ -70,7 +58,7 @@ var i = 1;
 
 /*search ajax function on call event*/
 function search_ajax(query)
-{initialize();
+{	initMap();
 	$.ajax({
 		type: "POST",
 		url: "listing.php",
@@ -81,15 +69,18 @@ function search_ajax(query)
 		var html='';
 		if(response.status == 'success')
 		{
-		
+			
+			
 			$.each(response.result,function(key,value){
 				lat = value.latt;
                 lng = value.longt;
                 name = value.heading;
-                image = value.image;
-                price = value.price;
+                var capitalized = name.charAt(0).toUpperCase() + name.substring(1)+'<br/>';
+                image = '<a href="javascript:void(0);"  data-id="'+value.id+'" class="ad_detail"><Img src="admin/uploads/'+value.image+'" style="width:100px;height:100px;border: 1px solid #bbbbbb;float: right;"></a><br/>';
+                price = "$ "+value.price;
                // url = value.short_description;
-				addMarker(i, lat, lng,image, name, price);
+               
+                addMarker(lat, lng,image, capitalized,price);
 			html +='<div class="col-xs-12 col-md-6">';
 			html+='<div class="SearchBlk">';
 			html+='<div class="ad_imgcont">';
@@ -103,7 +94,7 @@ function search_ajax(query)
 			html+='<span class="price">$'+value.price+'<span>New</span></span>';
 			html+='</div>';
 			html+='<div class="ad_info">';
-			html+='<a href="javascript:void(0);" data-toggle="modal" data-target="#ad_detail_modal"><h4>'+value.heading+'</h4></a>';
+			html+='<a href="javascript:void(0);" data-toggle="modal" data-target="#ad_detail_modal" data-id="'+value.id+'" class="ad_detail"><h4>'+value.heading+'</h4></a>';
 			html+='<ul class="loc">';
 			html+='<li><img src="images/mapmarker_icon.png" alt="location" width="12px" />'+value.city+', '+value.state+'</li>';
 			html+='</ul>';

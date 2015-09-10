@@ -1,0 +1,97 @@
+@media(min-width:992px) and (max-width:1199px){
+/*-- HEADER --*/
+header .headsearch input{width:180px;}
+/*-- DASHBOARD --*/
+.mainSection .InnerSection .DashboardList li{width:50%;}
+/*-- MANAGE ADs --*/
+.ads_row .adimgcont{height:110px;}
+}
+
+@media(min-width:992px){
+}
+
+@media(max-width:991px){
+/*-- HEADER --*/
+header{min-height:50px;}
+header .logo{margin-top:18px;}
+header .left_nav ul li{line-height:50px; min-height:50px;}
+header .left_nav ul li.wlcmUser{min-height:50px;}
+header .left_nav ul li.wlcmUser .usrimg{margin-top:7px; height:35px; width:35px;}
+header .left_nav ul li.wlcmUser h5{margin-top:4px;}
+/*-- DASHBOARD --*/
+.sidebar{top:50px; left:-70px; width:70px;}
+.sidebar h5{visibility:hidden; opacity:0; filter:alpha(opacity=0);}
+.sidebar .navigation li a{text-align:center;}
+.sidebar .navigation li a span{position:absolute; left:200px; opacity:0; visibility:hidden;}
+.sidebar .navigation li a:before{content:"";}
+.sidebar .navigation li a i{margin-right:0;}
+.sidebar.mob_collapsed{left:0;}
+.mainSection.maincollapsed{padding-left:0; transition:all 0.4s ease-in-out 0s}
+.mainSection.mob_maincollapsed .InnerSection{left:70px; position:relative; transition:all 0.7s ease-in-out 0s;}
+}
+
+@media(min-width: 768px){
+
+}
+
+@media(min-width:768px) and (max-width:991px){
+/*-- DASHBOARD --*/
+.sidebar{top:50px;}
+.mainSection{padding-top:50px; padding-left:0;}
+.mainSection .InnerSection .DashboardList li{width:50%;}
+/*-- MANAGE ADs --*/
+.ads_row .adimgcont{height:110px;}
+}
+
+@media(max-width:767px){
+.mob_pad0{padding:0;}
+header .left_nav ul{margin-right:0;}
+header .left_nav ul li a{padding:0 18px;}
+header .left_nav ul li.wlcmUser h5{font-size:12px; line-height:15px; margin-top:8px;}
+header .left_nav ul li.logout a span{display:none;}
+header .left_nav ul li.logout a i{margin:0;}
+header .left_nav ul li.logout{border:none;}
+/*-- DASHBOARD --*/
+.mainSection{padding-top:50px; padding-left:0; padding-right:0;}
+.mainSection .InnerSection .DashboardList li{width:50%;}
+.mainSection .InnerSection .breadcrumb{margin-bottom:10px;}
+.mainSection .InnerSection .breadcrumb li{font-size:11px;}
+.mainSection .InnerSection h2.heading{font-size:22px;}
+/*-INNER CONTANIER --*/
+.InnrCont{padding:20px 15px;}
+.InnrCont h3.subhead{font-size:17px;}
+/*-- MANAGE ADs --*/
+.ads_row nav{margin-right:10px;}
+}
+
+@media(max-width:600px){
+/*-- MAIN SECTION --*/
+.mainSection .InnerSection{padding-left:0; padding-right:0;}
+/*-- MANAGE ADs --*/
+.ads_row .adimgcont{height:110px;}
+.ads_row .ad_info h4{font-size:20px; line-height:20px; margin-bottom:10px;}
+}
+
+@media(max-width:560px){
+
+}
+
+@media(min-width:481px) and (max-width:767px){
+/*-- UPLOAD BUSINESS ADs --*/
+.upload_ad_otr .form-group .selectcell .cell_left{padding-right:15px;}
+.upload_ad_otr .form-group .selectcell .cell_right{padding-left:15px;}
+}
+
+@media(max-width:480px){
+/*-- DASHBOARD --*/
+.mainSection .InnerSection .DashboardList li{width:100%;}
+/*-- MANAGE ADs --*/
+.ads_row .adimgcont{height:110px; max-width:150px;}
+}
+
+@media(max-width:479px){
+}
+
+@media(max-width:320px){
+
+}

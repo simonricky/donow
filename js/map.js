@@ -1,66 +1,56 @@
-var 
-    bounds,
-    marker,
-    base_url="http://localhost/donow/donow/";
-    markersArray = Array();
- 
-$(window).ready(function(e){
-        initialize();
-});
-function initialize() {
-        var mapOptions = {
-			center: new google.maps.LatLng(-23.7003580,133.8808890), 
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById('js-map-container'), mapOptions);
-        map.setZoom(2);
-        //center = bounds.getCenter();
-        
-        //map.toString();
-        //getMapData();
-}
 
-/* getMapData() {
-    $.getJSON('properties.php',function(data){
-        if(data.success == true) {
-            if(data.data.length > 0){
-                $.each(data.data,function(index, value){
-                    lat = data.data[index].latitude;
-                    lng = data.data[index].longitude;
-                    name = data.data[index].name;
-                    image = data.data[index].image;
-                    price = data.data[index].price;
-                    url = data.data[index].url;
-                    addMarker(i, lat, lng,image, name, price,url);
-                    i++;
-                });
-            }
-        }
-    });
-}*/
-function addMarker(i, lat, lng, img, name, price) {//alert(lat+"--"+ lng+"--"+ img+"--"+ name+"--"+ price);
-    if (lat != null && lng != null) {
-        myLatLng = new google.maps.LatLng(lat, lng);
-        bounds = new google.maps.LatLngBounds();
-        var imageUrl = base_url+ 'images/marker.png';
-        var markerImage = new google.maps.MarkerImage(imageUrl);
-        eval('var marker' + i + ' = new google.maps.Marker({ position: myLatLng,  map: map, icon: markerImage, zIndex: i});');
-        var marker_obj = eval('marker' + i);
-        bounds.extend(marker_obj.position);
-        markersArray.push(eval('marker' + i));
-        marker_obj.title = name;
-        var li_obj = '.js-map-num' + i;
-        image = '';
-        if(img != ''){
-           image = '<img src="'+base_url+'admin/uploads/'+img+'" class="img-responsive img-thumbnail" />';
-        }
-        var content = '<div class="">'+image+'<h4>' + name + '</h4><h4><span class="label label-danger"> $'+ price +'</span></h4></div>';
-        eval('var infowindow' + i + ' = new google.maps.InfoWindow({ content: content,  maxWidth: 370});');
-        var infowindow_obj = eval('infowindow' + i);
-        var marker_obj = eval('marker' + i);
-        google.maps.event.addListener(marker_obj, 'click', function () {
-            infowindow_obj.open(map, marker_obj);
-        });
-    }
-    //center = bounds.getCenter();
-}
+ var icon = new google.maps.MarkerImage("http://www.google.com/mapfiles/marker.png",
+ new google.maps.Size(32, 32), new google.maps.Point(0, 0),
+ new google.maps.Point(16, 32));
+ var center = null;
+ var map = null;
+ var currentPopup;
+ var bounds = new google.maps.LatLngBounds();
+ function addMarker(lat, lng, info ,jobseeker,price) {
+ var pt = new google.maps.LatLng(lat, lng);
+ bounds.extend(pt);
+ var marker = new google.maps.Marker({
+ position: pt,
+ icon: icon,
+ map: map
+ });
+ var popup = new google.maps.InfoWindow({
+ content: '<p id="hook">'+info + jobseeker+price+'</p>',
+ maxWidth: 300
+ });
+ google.maps.event.addListener(marker, "mouseover", function() {
+ if (currentPopup != null) {
+ currentPopup.close();
+ currentPopup = null;
+ }
+ popup.open(map, marker);
+ currentPopup = popup;
+ });
+ google.maps.event.addListener(popup, "closeclick", function() {
+ //map.panTo(center);
+ currentPopup = null;
+ });
+ /*google.maps.event.addListener(marker, "dblclick", function() {alert(1);
+	    marker.setMap(null);
+	});*/
+ }
+ function initMap() {
+ map = new google.maps.Map(document.getElementById("js-map-container"), {
+ center: new google.maps.LatLng(-23.7003580,133.8808890),
+ zoom: 4,
+ disableDefaultUI: true,
+ mapTypeId: google.maps.MapTypeId.ROADMAP,
+ mapTypeControl: false,
+ mapTypeControlOptions: {
+ style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+ },
+ navigationControl: true,
+ navigationControlOptions: {
+ style: google.maps.NavigationControlStyle.SMALL
+ }
+ });
+ //addMarker(lat, lng,image, name);		 
+ center = bounds.getCenter();
+ //map.fitBounds(bounds);
+ map.toString();
+ }

@@ -1,2 +1,2 @@
-var root       = "http://localhost/donow/"; 
-var adminRoot  = "http://localhost/donow/admin/";
+var root       = "http://localhost/donow/donow/"; 
+var adminRoot  = "http://localhost/donow/donow/admin/";

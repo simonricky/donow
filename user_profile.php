@@ -1,39 +1,12 @@
-<?php /*?><!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DoNow</title>
-
-<link href="css/grid.css" type="text/css" rel="stylesheet" />
-<link href="css/owl.carousel.css" type="text/css" rel="stylesheet" />
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<link href="font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-<link href="fonts/fonts.css" type="text/css" rel="stylesheet" />
-<link href="css/slicknav.min.css" type="text/css" rel="stylesheet" />
-<link href="css/responsive.css" type="text/css" rel="stylesheet" />
-
-<link href="css/ion.rangeSlider.css" type="text/css" rel="stylesheet" />
-
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="js/html5shiv.min.js"></script>
-  <script src="js/respond.min.js"></script>
-<![endif]-->
-</head>
-
-<body>
-<?php
-*/
-
-//require_once 'config/dbconnection.php';
-//db_open();
+<?php 
 require_once 'phpInclude/functions.php';
 if(!isset($_SESSION))
 {
  //session_start();		
+}
+if (!isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']=="")
+{
+	header("Location:index.php#login");
 }
  //print_r($_SESSION);
  require_once 'phpInclude/header.php';
@@ -69,7 +42,7 @@ var loadFile = function(event) {
 	<div class="row">
     	<div class="col-xs-12">
         	<header>
-                <a href="javascript:void(0);" class="logo"><img src="images/donow_lg.png" alt="DoNow" class="img-responsive" /></a>
+                <a href="<?php echo $root;?>search.php" class="logo"><img src="images/donow_lg.png" alt="DoNow" class="img-responsive" /></a>
                 <a href="javascript:void(0);" class="navtoggle hidden-xs"><span></span><span></span><span></span></a>
                 <ul class="leftnav" id="menu">
                     <li style="display:none;"><a href="javascript:void(0);" data-toggle="modal" data-target="#accountpopup" class="loginlink"><i class="fa fa-key"></i> Login</a></li>
@@ -79,7 +52,8 @@ var loadFile = function(event) {
                         	<a href="javascript:void(0);"><h6><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?> <i class="fa fa-angle-down"></i></h6>
                             <span class="userimg"><img src="<?php echo $image;?>" class="img-responsive" alt="user" /></span></a>
                             <ul class="usr_drop">
-                            	<li><a href="javascript:void(0);">Account Setting</a></li>
+                            	<li><a href="user_profile.php">Account Setting</a></li>
+                            	<li><a href="business_profile.php">Business Setting</a></li>
                                 <li><a href="handler.php?method=<?php echo base64_encode("logout");?>">Log Out</a></li>
                             </ul>
                         </div>

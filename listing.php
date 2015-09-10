@@ -31,15 +31,31 @@ if(isset($_POST['search_advertisement']))
 	}
 	if(!empty($ad_time))
 	{
-		$condition .= " and (at.open >= CAST('".$ad_time."' AS time) AND at.close <= CAST('".$ad_time."' AS time) )";
+		//$condition .= " and (at.open >= CAST('".$ad_time."' AS time) AND at.close <= CAST('".$ad_time."' AS time) )";
+		//$condition .= " AND   at.open <= '$ad_time' AND  at.close  >= '$ad_time' ";
+		$condition .= " AND   a.opening_time = '$ad_time'  ";
 	}
 	
 	$query = " ";
 	$having = " ";
-	if( (!empty($check)) && (!empty($city) || !empty($state)) )
+	//if( (!empty($check)) && (!empty($city) || !empty($state)) )
+	if( !empty($check) )
+	{
+		$loc_info = file_get_contents("http://ipinfo.io/{$_SERVER['REMOTE_ADDR']}");
+		$res = json_decode($loc_info);
+		$srr = explode("," ,$res->loc);
+		 $latitude  = $srr[0];
+		 $longitude = $srr[1];
+		 $query = " , ( 3959 * acos( cos( radians($latitude) ) * cos( radians( a.latt ) )
+		* cos( radians( a.longt ) - radians($longitude) ) + sin( radians($latitude) )
+		* sin( radians( a.latt ) ) ) ) AS distance";
+		
+		$having = " HAVING distance <= '".($check*0.621371)."' ";
+	}
+	else if( (!empty($check)) && (!empty($city) || !empty($state)) )
 	{
 		$address = str_replace(" ", "+", $city.",".$state.",".$country);
-
+		
 		$json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false");
 		$json = json_decode($json);
 		$latitude = (!empty($json->{'results'})) ? $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'} : 0;
@@ -72,7 +88,7 @@ if(isset($_POST['search_advertisement']))
 	$start         		= (($pageno)-1)*$recordperpage;
 	$limit 				= " LIMIT ".$start.", ".$recordperpage;
 	
-	$sql = " SELECT SQL_CALC_FOUND_ROWS  a.* ".$query." FROM tbl_advertisement as a LEFT JOIN ad_timing as at ON(a.id = at.ad_id) WHERE 1=1 ".$condition.$having." GROUP BY a.id ".$limit;
+	 $sql = " SELECT SQL_CALC_FOUND_ROWS  a.* ".$query." FROM tbl_advertisement as a LEFT JOIN ad_timing as at ON(a.id = at.ad_id) WHERE 1=1 ".$condition." GROUP BY a.id ".$having.$limit;
 	$query = mysql_query($sql) or die(mysql_error($sql));
 	if($query)
 	{
@@ -96,7 +112,7 @@ if(isset($_POST['search_advertisement']))
 	
 	$totalpages    		= ceil($totalrecords/$recordperpage);
 	$disp_total = (($pageno*$recordperpage)<$totalrecords)?$pageno*$recordperpage:$totalrecords;
-$paging = '<p class="page_result_found" >Showing '.$start.' - '.($disp_total).' of '.($totalrecords).' Rentals</p>';
+$paging = '<p class="page_result_found" >Showing '.$start.' - '.($disp_total).' of '.($totalrecords).' Activity</p>';
 	if($totalrecords>$recordperpage)
 	{
 	

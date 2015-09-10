@@ -1,6 +1,25 @@
 <?php
 require_once '../config/dbconnection.php';
 db_open();
+require_once '../phpInclude/functions.php';
+if (!isset($_SESSION['admin_session_id']) && $_SESSION['admin_session_id']=="")
+{
+	header("Location:index.php");
+}
+else 
+{
+	$condition = "  id='".trim($_SESSION['admin_session_id'])."' ";
+	$user   = getUserDetail($condition);
+	$data = mysql_fetch_assoc($user);
+	//print_r($data);
+	if (isset($data['profile_image_url']) && $data['profile_image_url']!="")
+	{
+		$image="../profile/".trim($data['profile_image_url']);
+	} else
+	{
+		$image="../images/profile_user.jpg";
+	}
+}
 ?>
 <!doctype html>
 <html>
@@ -57,7 +76,7 @@ label.error {color : red !important;}
                     <span></span>
                     <span></span>
                 </a>
-                <a href="javascript:void(0);" class="logo hidden-xs"><img src="images/logo.png" alt="DoNow" class="img-responsive" /></a>
+                <a href="<?php echo $root;?>" class="logo hidden-xs"><img src="images/logo.png" alt="DoNow" class="img-responsive" /></a>
                 <div class="headsearch hidden-xs hidden-sm">
                 	<i class="fa fa-search"></i>
                     <input type="search" placeholder="Type to search" />
@@ -66,14 +85,14 @@ label.error {color : red !important;}
             <div class="col-md-6 col-sm-8 col-xs-10 mob_pad0">
             	<div class="left_nav pull-right">
                 	<ul>
-                    	<li class="notification"><a href="javascript:void(0);"><i class="fa fa-bell"><span>5</span></i></a></li>
+                    	<!-- <li class="notification"><a href="javascript:void(0);"><i class="fa fa-bell"><span>5</span></i></a></li> -->
                         <li class="wlcmUser">
                         	<a href="javascript:void(0);">
-                            	<span class="usrimg"><img src="images/usrimg.jpg" alt="user" class="img-responsive" /></span>
-                                <h5>Welcome<span>Administrator</span></h5>
+                            	<span class="usrimg"><img src="<?php echo $image;?>" alt="user" class="img-responsive" /></span>
+                                <h5>Welcome<span><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?></span></h5>
                         	</a>
                         </li>
-                        <li class="logout"><a href="javascript:void(0);"><span>Log out</span><i class="fa fa-sign-out"></i></a></li>
+                        <li class="logout"><a href="handler.php?method=<?php echo base64_encode("logout");?>"><span>Log out</span><i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -82,16 +101,9 @@ label.error {color : red !important;}
 </header><!-- FIXED HEADER -->
 
 <section class="mainSection">
-	<div class="sidebar"><!-- FIXED SIDEBAR -->
-    	<h5>Overview</h5>
-        <ul class="navigation">
-        	<li><a href="javascript:void(0);"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-            <li><a href="javascript:void(0);" class="active"><i class="fa fa-cloud-upload"></i> <span>Upload ad</span> </a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-gears"></i> <span>Manage ads</span> </a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-briefcase"></i> <span>Businesses</span></a></li>
-            <li><a href="javascript:void(0);"><i class="fa fa-users"></i> <span>Users</span></a></li>
-        </ul>
-    </div><!-- FIXED SIDEBAR -->
+	<?php 
+	require_once 'phpInclude/sidebar.php';
+	?><!-- FIXED SIDEBAR -->
     
     <div class="InnerSection"><!-- INNER SECTION -->
     	<div class="container-fluid">
@@ -184,11 +196,11 @@ label.error {color : red !important;}
                                 <div class="row">
                                 	<div class="col-sm-4 col-xs-12">
                                     	<div class="form-group">
-                                            <label>Time of activity</label>
+                                            <label>Average Time of activity</label>
                                             <div class="selectcell">
-                                                <div class="cell_left">
+                                                <!-- <div class="cell_left"> -->
                                                     <select class="form-control custom-select" name="time_start">
-                                                        <option>Starting Time</option>
+                                                        <option value="">Select Average Time</option>
                                                         <?php
 												$start=strtotime('00:00');
 												$end=strtotime('23:30');
@@ -196,10 +208,10 @@ label.error {color : red !important;}
 												<option value="<?php echo date('H:i',$halfhour);?>" ><?php echo date('H:i',$halfhour);?></option>	   
 												<?php }?>
                                                     </select>
-                                                </div>
-                                                <div class="cell_right">
+                                                <!-- </div> -->
+                                                <?php /*<div class="cell_right">
                                                     <select class="form-control custom-select" name="end_time">
-                                                        <option>Ending Time</option>
+                                                        <option value="">End Time</option>
                                                         <?php
 												$start=strtotime('00:00');
 												$end=strtotime('23:30');
@@ -207,7 +219,7 @@ label.error {color : red !important;}
 												<option value="<?php echo date('H:i',$halfhour);?>" ><?php echo date('H:i',$halfhour);?></option>	   
 												<?php }?>
                                                     </select>
-                                                </div>
+                                                </div>*/?>
                                             </div>
                                        	</div>
                                     </div>
@@ -216,7 +228,7 @@ label.error {color : red !important;}
                                         	<label>Price</label>
                                             <div class="input-group">
                                             	<i class="addon_input fa fa-dollar"></i>
-                                            	<input type="text" placeholder="00" class="form-control" name="price"/>
+                                            	<input type="text" placeholder="0.00" class="form-control" name="price"/>
                                             </div>
                                         </div>
                                     </div>
@@ -249,6 +261,7 @@ label.error {color : red !important;}
                                 </div>
                                 <input type="hidden" name="image" id="image" value="sdsa"/>
                                  <input type="hidden" name="action" value="upload_ad"/>
+                                 <input type="hidden" name="page_no"  id="page_no" value="not_defined"/>
                                 <input type="submit" name="save" value="SAVE" id="save" class="signin_btn submitbtn1"/>
                                 </form>
                         </div>
@@ -269,6 +282,10 @@ $(document).ready(function(){
 		$(this).after("<span class='holder'></span>");
 	});
 	$(".custom-select").change(function(){
+		$('#state-error').remove();
+		$('#time_start-error').remove();
+		$('#end_time-error').remove();
+		$('#select_level-error').remove();
 		var selectedOption = $(this).find(":selected").text();
 		$(this).next(".holder").text(selectedOption);
 	}).trigger('change');

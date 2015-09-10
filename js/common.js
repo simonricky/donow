@@ -16,6 +16,12 @@ $(document).ready(function(){
 	    	      email: true
 	    	    },
 	    	password : "required",
+	    	abn : "required",
+	    	telephone : "required",
+	    	address : "required",
+	    	city : "required",
+	    	state : "required",
+	    	country : "required",
 	    	confirm_pass: {
 	    	      equalTo: "#password"
 	    	    },
@@ -32,6 +38,12 @@ $(document).ready(function(){
 	    	      email: "Please enter valid email address"
 	    	    },
 	    	password : "Please enter password",
+	    	abn : "Please enter australian buiseness number",
+	    	address : "Please enter address",
+	    	telephone : "Please enter phone number",
+	    	city : "Please enter city",
+	    	state : "Please select state",
+	    	country : "Please select country",
 	    	confirm_pass: {
 	    	      equalTo: "Password must be same"
 	    	    } ,
@@ -52,7 +64,10 @@ $(document).ready(function(){
 				$('#showLoder').show();	
 			    },
 				success: function(data){
-					$('#showLoder').hide();	
+					$('#showLoder').hide();
+					$('html,body').animate({
+				        scrollTop: $("#accountpopup").offset().top},
+				        'slow');
 					if($.trim(data)=="exists")
 					{
 						$('#errors').html('<span style="color:red;">Email address already exists,please try login.</span>');
@@ -66,6 +81,7 @@ $(document).ready(function(){
 					}else {
 					$('#errors').html('<span style="color:red;">Some error occur ,please try again later.</span>');
 					}
+					
 				}
 					
 				}); 
@@ -108,7 +124,7 @@ $(document).ready(function(){
 						$('#errors').html('<span style="color:green;">You have been logged in successfully.</span>');
 						setTimeout(function() {
 						  // Do something after 5 seconds
-							window.location.href = 'user_profile.php';
+							window.location.href = 'search.php';
 					}, 2000);
 					}else {
 					$('#errors').html('<span style="color:red;">Some error occur ,please try again later.</span>');
@@ -207,5 +223,108 @@ $("#pro_update").click(function(){
 				
 			}); 
     
+});
+/**delete room**/
+$("body").on("click", ".ad_detail", function() {
+    var my = $(this);
+    var alt = $(this).attr('data-id');
+    //alert(alt);return false;
+    var dataString = "addId=" + alt + "&action=getDetail";
+    
+        $.ajax({
+            data: dataString,
+            url: adminRoot+"handler.php",
+            type: "POST",
+            dataType:'json',
+            success: function(response) {
+            	if($.trim(response.status) == "success")
+        		{
+            		$.each(response.result,function(key,value){
+            		var lat=value.latt;
+            		var longt=value.longt;
+            		initialize(lat,longt);
+            		$('#heading').text(value.heading);
+            		$('#address').html('<i class="fa fa-map-marker"></i>&nbsp;'+value.address+", "+value.city+", "+value.state);
+            		$('.price').text('$ '+value.price);
+            		$('.pricetag').text('$ '+value.price);
+            		$('#short_desc').text(value.short_description);
+            		$('#long_desc').text(value.long_description);
+            		$('#time').text(value.opening_time);
+            		$('#adv_img').attr("src","admin/uploads/"+value.image).attr('style', '').css('width', 'auto'); 
+            		$('#distance').text("With in " + parseInt(value.distance) +" km");
+            		 $('#ad_detail_modal').modal('show');
+            		});
+        		}
+            }
+        });
+});
+///////// Update buiseness profile////////////
+$("#buiseness_info").validate({
+
+    rules: {
+    	
+    	buis_name : "required",
+    	abn : "required",
+    	contact : "required",
+    	address : "required",
+    	city : "required",
+    	state : "required",
+    	country : "required"
+    	
+    },
+    messages: {
+    	
+    	buis_name :"Please enter buiseness name",
+    	password : "Please enter password",
+    	abn : "Please enter australian buiseness number",
+    	address : "Please enter address",
+    	contact : "Please enter phone number",
+    	city : "Please enter city",
+    	state : "Please select state",
+    	country : "Please select country"
+		   
+	   },
+    submitHandler: function(form) {
+    	//var dataString = $('#buiseness_info').serialize();
+    	var formData = new FormData($('#buiseness_info')[0]);
+		$.ajax({
+			type: "POST",
+			url: root+"handler.php",
+			data: formData,
+			contentType: false,       // The content type used when sending data to the server.
+			cache: false,             // To unable request pages to be cached
+			processData:false,        // To send DOMDocument or non processed data file it is set to false
+			mimeType:"multipart/form-data",
+			beforeSend: function(){
+			$('#showLoder').show();	
+		    },
+			success: function(data){
+				$('#showLoder').hide();
+				$('html,body').animate({
+			        scrollTop: $("#errors").offset().top},
+			        'slow');
+				if($.trim(data)=="update")
+				{
+					$('#errors').html('<span style="color:green;"><strong>Business information successfully updated.</strong></span>');
+					setTimeout(function() {
+						  // Do something after 5 seconds
+							window.location.href = 'business/upload_business_ad.php';
+					}, 2000);
+				}
+				else if($.trim(data)=="success")
+				{
+					$('#errors').html('<span style="color:green;"><strong>Business information successfully saved.</strong></span>');
+					setTimeout(function() {
+						  // Do something after 5 seconds
+							window.location.href = 'business/upload_business_ad.php';
+					}, 2000);
+				} else {
+				$('#errors').html('<span style="color:red;">Some error occur ,please try again later.</span>');
+				}
+				
+			}
+				
+			}); 
+    }
 });
 });
