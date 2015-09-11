@@ -289,7 +289,8 @@ input.cmn-toggle-round:checked + label .fa-check{display:block;}
 /*=================== SEARCH PAGE ===================*/
 /*=================== USER PROFILE PAGE ===================*/
 .usrpro_head{padding-left:50px; padding-right:10px; position:relative; min-height:36px; margin-top:-5px;}
-.usrpro_head .userimg{position:absolute; left:0; top:0; height:36px; width:36px; border-radius:50%; overflow:hidden;}
+.usrpro_head a{border-bottom:none !important;}
+.usrpro_head .userimg{position:absolute; left:0; top:0; height:36px; width:36px; border-radius:50%; overflow:hidden; background-color:#f5f5f5;}
 .usrpro_head h6{font-family:'titillium_weblight'; font-size:15px; line-height:36px; margin-right:10px;}
 header .leftnav li .usrpro_head a h6 i{background:transparent; height:auto; width:auto; color:#555555; font-size:18px; margin:0 0 0 5px; border-radius:0;}
 .usrpro_head a:hover h6, header .leftnav li .usrpro_head a:hover h6 i{color:#ff513f;}

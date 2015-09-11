@@ -71,8 +71,10 @@ if (isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']!="")
                 ?>
                 <li style="display:block;">
                     	<div class="usrpro_head">
-                        	<a href="javascript:void(0);"><h6><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?> <i class="fa fa-angle-down"></i></h6>
-                            <span class="userimg"><img src="<?php echo $image;?>" class="img-responsive" alt="user" /></span></a>
+                        	<a href="javascript:void(0);" class="usr_link">
+								<span class="userimg"><img src="<?php echo $image;?>" class="img-responsive" alt="user" /></span>
+								<h6><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?> <i class="fa fa-angle-down"></i></h6>
+                            </a>
                             <ul class="usr_drop">
                             	<li><a href="user_profile.php">Account Setting</a></li>
                             	<!-- <li><a href="business_profile.php">Business Setting</a></li> -->

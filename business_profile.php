@@ -73,8 +73,10 @@ $user_detail = getDetail($field,$table,$condition);//print_r($user_detail);
                     <li style="display:none;"><a href="javascript:void(0);" data-toggle="modal" data-target="#accountpopup" class="signuplink"><i class="fa fa-lock"></i> Signup</a></li>
                     <li style="display:block;">
                     	<div class="usrpro_head">
-                        	<a href="javascript:void(0);"><h6><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?> <i class="fa fa-angle-down"></i></h6>
-                            <span class="userimg"><img src="<?php echo $image;?>" class="img-responsive" alt="user" /></span></a>
+                        	<a href="javascript:void(0);" class="usr_link">
+                            <span class="userimg"><img src="<?php echo $image;?>" class="img-responsive" alt="user" /></span>
+                            <h6><?php if (isset($data['fname'])){echo ucfirst($data['fname'])." ".$data['lname'];}?> <i class="fa fa-angle-down"></i></h6>
+                            </a>
                             <ul class="usr_drop">
                             	<li><a href="user_profile.php">Account Setting</a></li>
                             	<li><a href="business_profile.php">Business Setting</a></li>

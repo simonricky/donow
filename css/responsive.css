@@ -80,6 +80,15 @@ footer .ft_social{margin:20px 0 30px; border-top:1px solid #1a1e2c;}
 .AdDetailModal .modal-dialog{width:460px;}
 .AdDetailModal .modal-header h2{font-size:22px;}
 .AdDetailModal .modal-header h5{font-size:13px;}
+/*--profile page --*/
+.usrpro_head{border-bottom:1px solid #eeeeee; padding-left:10px;}
+.usrpro_head .userimg{left:4px; margin-top:6px;}
+.usrpro_head .usr_link{padding-left:50px !important; position:relative;}
+.usrpro_head .usr_drop{position:relative; width:100%; margin-left:0; right:0;}
+.usrpro_head a:hover,.usrpro_head a:foucs{color:#fff;}
+.slicknav_nav .usrpro_head a i{float:right; margin:6px 0 0 0;}
+.usrpro_head a:hover h6, header .leftnav li .usrpro_head a:hover h6 i{color:#fff;}
+.usrpro_head a:hover h6:focus{color:#fff;}
 }
 
 @media(max-width:600px){
