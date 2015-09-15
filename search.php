@@ -29,6 +29,11 @@ if (isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']!="")
 		$image="images/profile_user.jpg";
 	}
 }
+$loc_info = file_get_contents("http://ipinfo.io/{$_SERVER['REMOTE_ADDR']}");
+$res = json_decode($loc_info);
+$srr = explode("," ,$res->loc);
+$latitude  = $srr[0];
+$longitude = $srr[1];
 ?>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -37,6 +42,8 @@ if (isset($_SESSION['db_session_id']) && $_SESSION['db_session_id']!="")
 <![endif]-->
 <!--</head>-->
  <script>
+ var latitude='<?php echo $latitude;?>';
+ var longitude = '<?php echo $longitude;?>';
   $(function() {
     $( "#date_of_birth" ).datepicker({
 	      changeMonth: true,

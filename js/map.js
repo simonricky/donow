@@ -36,13 +36,24 @@
  }
  function initMap() {
  map = new google.maps.Map(document.getElementById("js-map-container"), {
- center: new google.maps.LatLng(-23.7003580,133.8808890),
+ center: new google.maps.LatLng(latitude,longitude),
  zoom: 4,
  disableDefaultUI: true,
  mapTypeId: google.maps.MapTypeId.ROADMAP,
- mapTypeControl: false,
+ mapTypeControl: true,
  mapTypeControlOptions: {
- style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+     style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+     position: google.maps.ControlPosition.TOP_CENTER
+ },
+ zoomControl: true,
+ zoomControlOptions: {
+     style: google.maps.ZoomControlStyle.LARGE,
+     position: google.maps.ControlPosition.LEFT_CENTER
+ },
+ scaleControl: true,
+ streetViewControl: true,
+ streetViewControlOptions: {
+     position: google.maps.ControlPosition.LEFT_TOP
  },
  navigationControl: true,
  navigationControlOptions: {
